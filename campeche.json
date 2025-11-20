@@ -1,0 +1,178 @@
+{
+  "estado": "Campeche",
+  "fuentes": [
+    "Secretaría de Turismo de Campeche (SECTUR estatal)",
+    "Gobierno de México - SECTUR",
+    "INEGI",
+    "Plan Estatal de Desarrollo 2024-2027 (Gobierno de Campeche)",
+    "La Jornada Maya - Reporte SECTUR estatal 2024",
+    "La República Peninsular - Reporte estadístico 2024",
+    "TripAdvisor - listados locales",
+    "Sitios oficiales y guías locales"
+  ],
+
+  "estadisticas_turisticas": {
+    "visitantes_2024": 1700000,
+    "crecimiento_anual": "10%",
+    "derrama_economica_2024_mxn": 4200000000,
+    "congresos_ultimos_3_anios": 1000,
+    "visitantes_congresos": 52000,
+    "ocupacion_hotelera_2023": "45.97%",
+    "alojamientos_totales": 285,
+    "guias_turisticos_certificados": 92
+  },
+
+  "transporte_moderno": {
+    "tren_maya": {
+      "descripcion": "Sistema ferroviario moderno que conecta la península de Yucatán. Campeche cuenta con estaciones clave como San Francisco Campeche y Edzná.",
+      "beneficio": "Facilita llegada de turistas nacionales e internacionales."
+    },
+    "tren_ligero_campeche": {
+      "descripcion": "Proyecto urbano de movilidad interna de la zona metropolitana (conexión a estaciones y puntos turísticos).",
+      "beneficio": "Mejor accesibilidad para visitantes dentro de la ciudad."
+    },
+    "koox_tranvia": {
+      "descripcion": "Tranvía turístico destinado a recorrer el centro histórico y zonas emblemáticas.",
+      "beneficio": "Ofrece rutas guiadas para turistas sin necesidad de vehículo propio."
+    }
+  },
+
+  "puntos_interes_recomendados": {
+    "historia_y_cultura": [
+      {
+        "nombre": "Fuerte de San Miguel",
+        "categoria": "Museo histórico",
+        "ubicacion": "San Francisco de Campeche",
+        "coordenadas": { "lat": 19.8203, "lng": -90.5363 }
+      },
+      {
+        "nombre": "Fuerte de San José el Alto",
+        "categoria": "Museo marítimo",
+        "ubicacion": "Campeche",
+        "coordenadas": { "lat": 19.8429, "lng": -90.5231 }
+      },
+      {
+        "nombre": "Baluarte de la Soledad",
+        "categoria": "Museo de arquitectura",
+        "ubicacion": "Centro Histórico, Campeche",
+        "coordenadas": { "lat": 19.8457, "lng": -90.5348 }
+      }
+    ],
+
+    "gastronomia": [
+      {
+        "nombre": "Calle 59 (zona gastronómica)",
+        "tipo": "Zona gastronómica",
+        "especialidades": ["Cocina campechana", "Fusión", "Mariscos"],
+        "ubicacion": "Centro Histórico"
+      }
+    ],
+
+    "dulces_tipicos": [
+      {
+        "nombre": "Dulcería La Campechana",
+        "especialidades": ["Campechana", "Cocoyol cristalizado", "Merengues"],
+        "ubicacion": "Centro Histórico, Campeche"
+      },
+      {
+        "nombre": "Casa Vieja - Dulcería y Artesanías",
+        "especialidades": ["Dulces regionales", "Productos artesanales"],
+        "ubicacion": "Centro Histórico, Campeche"
+      },
+            {
+        "nombre": "Mercado Principal 'Pedro Sáinz de Baranda'",
+        "tipo": "Comida tradicional / mercado",
+        "especialidades": ["Merengues", "Cocadas", "Boca de payaso"],
+        "ubicacion": "Campeche"
+      }
+    ],
+
+    "lugares_naturaleza": [
+      {
+        "nombre": "Zona Arqueológica de Edzná",
+        "categoria": "Arqueología",
+        "ubicacion": "Edzná, Campeche",
+        "coordenadas": { "lat": 19.5937, "lng": -90.2267 }
+      },
+      {
+        "nombre": "Isla Aguada",
+        "categoria": "Playa / Naturaleza",
+        "ubicacion": "Isla Aguada, Campeche",
+        "coordenadas": { "lat": 18.6136, "lng": -91.8409 }
+      }
+    ]
+  },
+
+  "restaurantes_famosos": [
+    {
+      "nombre": "Aduana 59",
+      "categoria": "Alta cocina / Mexicana contemporánea",
+      "direccion": "Calle 59, Centro Histórico, Campeche",
+      "coordenadas": { "lat": 19.8450, "lng": -90.5340 },
+      "fuente": "TripAdvisor / reseñas locales"
+    },
+    {
+      "nombre": "La María Cocina Peninsular",
+      "categoria": "Cocina peninsular",
+      "direccion": "Malecón / Centro Histórico, Campeche",
+      "coordenadas": { "lat": 19.8325, "lng": -90.5280 },
+      "fuente": "Guías locales / reseñas"
+    },
+    {
+      "nombre": "Marganzo",
+      "categoria": "Mariscos / Cocina local",
+      "direccion": "Centro Histórico, Campeche",
+      "coordenadas": { "lat": 19.8465, "lng": -90.5325 },
+      "fuente": "TripAdvisor / listados locales"
+    },
+    {
+      "nombre": "La Palapa del Tío Fito",
+      "categoria": "Mariscos / Vista al mar",
+      "direccion": "Malecón, Campeche",
+      "coordenadas": { "lat": 19.8360, "lng": -90.5295 },
+      "fuente": "Sitio oficial / TripAdvisor"
+    },
+    {
+      "nombre": "La Pigua",
+      "categoria": "Mariscos",
+      "direccion": "Malecón, Campeche",
+      "coordenadas": { "lat": 19.8350, "lng": -90.5290 },
+      "fuente": "Reseñas locales / TripAdvisor"
+    },
+    {
+      "nombre": "Ronsel Seafood & Grill",
+      "categoria": "Mariscos / Sunset view",
+      "direccion": "Zona del Malecón, Campeche",
+      "coordenadas": { "lat": 19.8330, "lng": -90.5310 },
+      "fuente": "Listados de restaurantes"
+    },
+    {
+      "nombre": "Casa Vieja del Río",
+      "categoria": "Comida mexicana / Vista al río",
+      "direccion": "Malecón / Centro, Campeche",
+      "coordenadas": { "lat": 19.8315, "lng": -90.5285 },
+      "fuente": "Guías locales / TripAdvisor"
+    },
+    {
+      "nombre": "Bartola (café y desayunos)",
+      "categoria": "Cafetería / Desayuno",
+      "direccion": "Centro Histórico, Campeche",
+      "coordenadas": { "lat": 19.8460, "lng": -90.5330 },
+      "fuente": "Reseñas locales"
+    },
+    {
+      "nombre": "Los Delfines",
+      "categoria": "Mariscos",
+      "direccion": "Malecón, Campeche",
+      "coordenadas": { "lat": 19.8348, "lng": -90.5289 },
+      "fuente": "TripAdvisor"
+    },
+    {
+      "nombre": "El Bastión",
+      "categoria": "Comida campechana",
+      "direccion": "Calle 57 #2A entre 8 y 10, Campeche",
+      "coordenadas": { "lat": 19.8452, "lng": -90.5341 },
+      "fuente": "Facebook / publicación local"
+    }
+  ]
+}
