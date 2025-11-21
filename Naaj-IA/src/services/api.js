@@ -7,7 +7,8 @@ import axios from 'axios';
 const api = axios.create({
   baseURL: 'http://localhost:3000',
   headers: { 'Content-Type': 'application/json' }, 
-});
+}); // baseURL: 'http://localhost:3000',
+// baseURL: 'https://naaj-ia.onrender.com'
 
 // AGREGAMOS EL PARÁMETRO 'history' AQUÍ
 export const sendMessageToNaaj = async (question, history = []) => {
@@ -30,3 +31,13 @@ export const sendMessageToNaaj = async (question, history = []) => {
     throw error;
   }
 };
+
+/*const isProduction = import.meta.env.MODE === 'production'; // Si usas Vite
+// const isProduction = process.env.NODE_ENV === 'production'; // Si usas Create React App
+
+const api = axios.create({
+  baseURL: isProduction 
+    ? 'https://nombre-de-tu-proyecto.onrender.com' // Usa esto si está en la nube
+    : 'http://localhost:3000',                     // Usa esto si está en tu PC
+  headers: { 'Content-Type': 'application/json' }, 
+});*/
