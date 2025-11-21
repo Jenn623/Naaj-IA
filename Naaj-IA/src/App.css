@@ -1,8 +1,24 @@
-#root {
+*{
+  box-sizing: border-box;
+}
+
+/*#root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}*/
+
+/* Forzamos al contenedor de React a ocupar todo el espacio */
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body{
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
 }
 
 .logo {

@@ -1,0 +1,53 @@
+/*estilos generales para la burbuja del mensaje*/
+
+.message-row {
+  display: flex;
+  margin-bottom: 15px;
+  padding: 0 15px;
+}
+
+/* Alineación a la derecha para el usuario */
+.user-row {
+  justify-content: flex-end;
+
+}
+
+/* Alineación a la izquierda para Naaj */
+.naaj-row {
+  justify-content: flex-start;
+  
+}
+
+.message-bubble {
+  max-width: 75%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  /* Esto fuerza a que el texto baje de línea si es muy largo */
+  word-wrap: break-word;       
+  word-break: break-word;
+}
+
+/* Estilo para las imágenes dentro del chat */
+.message-img-content {
+  width: 100%;         /* Ocupa el ancho disponible de la burbuja */
+  max-width: 250px;    /* Límite para que no sea gigante */
+  border-radius: 12px; /* Bordes redondeados bonitos */
+  display: block;
+  margin-top: 5px;
+}
+
+/* Estilo burbuja Usuario (Color primario, ej. morado o azul según tu branding) */
+.user-bubble {
+  background-color: #6C63FF; 
+  color: white;
+  border-bottom-right-radius: 4px; /* Efecto visual de chat */
+}
+
+/* Estilo burbuja Naaj (Gris claro) */
+.naaj-bubble {
+  background-color: #f0f0f0;
+  color: #333;
+  border-bottom-left-radius: 4px;
+}

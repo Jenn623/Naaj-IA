@@ -1,0 +1,26 @@
+/*estilos generales para el navbar*/
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+  background-color: #fff;
+  border-top: 1px solid #eee;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #402544;
+  flex-shrink: 0; /* No permitas que se encoja */
+  padding-bottom: env(safe-area-inset-bottom); /* Para iPhones sin botón home */
+}
+
+.nav-item {
+  font-size: 1.5rem;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.nav-item.active {
+  opacity: 1;
+}

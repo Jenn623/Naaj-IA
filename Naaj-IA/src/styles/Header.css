@@ -1,0 +1,32 @@
+/*estilos para el header*/
+
+.header-container {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: sticky; /* Se queda fijo arriba */
+  top: 0;
+  z-index: 100;
+  background-color: #402544;
+}
+
+.avatar img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+.header-info h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #394425;
+}
+
+.status {
+  font-size: 0.8rem;
+  color: #4CAF50; /* Verde para indicar activo */
+}

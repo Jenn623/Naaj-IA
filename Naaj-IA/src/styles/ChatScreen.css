@@ -1,0 +1,34 @@
+/*estilo general para la pantalla del chat con naaj-ia*/
+
+.chat-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh; /* Ocupa toda la pantalla */
+  background: #E4007C;
+  background: linear-gradient(180deg, rgba(228, 0, 124, 1) 0%, rgba(105, 58, 176, 1) 50%, rgba(42, 243, 243, 1) 100%);
+  font-synthesis: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: auto; /* Scroll vertical */
+  padding-bottom: 130px; /* Espacio para Input + NavBar */
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;   /* Para que los mensajes se apilen */
+  overflow-y: auto; /* El scroll SOLO ocurre aquí adentro */
+  overflow-x: hidden;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.typing-indicator {
+  margin-left: 20px;
+  font-size: 0.8rem;
+  color: #888;
+  font-style: italic;
+  margin-bottom: 10px;
+}

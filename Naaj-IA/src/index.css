@@ -5,12 +5,25 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  background: #E4007C;
+  background: linear-gradient(90deg, rgba(228, 0, 124, 1) 0%, rgba(105, 58, 176, 1) 50%, rgba(42, 243, 243, 1) 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%; /* Fallback para navegadores viejos */
+  overflow: hidden; /* ¡IMPORTANTE! Bloquea el scroll en el body entero */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 a {
@@ -28,6 +41,12 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+/* Forzamos al contenedor de React a ocupar todo el espacio */
+#root {
+  height: 100%;
+  width: 100%;
 }
 
 h1 {

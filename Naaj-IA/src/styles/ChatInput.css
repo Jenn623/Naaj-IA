@@ -1,0 +1,42 @@
+/*estilos generales para el input del mensaje*/
+
+.input-container {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #fff;
+  border-top: 1px solid #eaeaea;
+  position: relative; /* Fijo en la parte inferior (arriba del navbar) */
+  /*bottom: 60px; /* Ajustar según la altura del NavBar */
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-container input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 24px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+  color: #000000;
+}
+
+.input-container input:focus {
+  border-color: #6C63FF;
+}
+
+.input-container button {
+  background: none;
+  border: none;
+  margin-left: 10px;
+  color: #6C63FF;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.input-container button:disabled {
+  color: #ccc;
+}
