@@ -45,7 +45,8 @@ const ChatScreen = () => {
           id: Date.now() + 1 + index, // IDs únicos
           text: msg.content,          // El contenido (texto o url de imagen)
           isUser: false,
-          type: msg.type || 'text'    // 'text' o 'image'
+          type: msg.type || 'text',    // 'text' o 'image'
+          altText: msg.alt_text
         }));
 
         // Agregamos todos los mensajes de Naaj al chat
@@ -82,7 +83,7 @@ const ChatScreen = () => {
       
       <div className="messages-container">
         {messages.map((msg) => (
-          <Message key={msg.id} text={msg.text} isUser={msg.isUser} />
+          <Message key={msg.id} text={msg.text} isUser={msg.isUser} type={msg.type} altText={msg.altText} />
         ))}
         {loading && <div className="typing-indicator">Naaj está escribiendo...</div>}
         <div ref={messagesEndRef} />

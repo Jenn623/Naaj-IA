@@ -8,7 +8,7 @@ const Header = () => {
     <div className="header-container">
         {/* Puedes reemplazar el src con la ruta de tu imagen local o url */}
       <div className="avatar">
-        <img src="./src/assets/Logo_Naaj.jpg" alt="Naaj Avatar" />
+        <img src="./public/naaj-IA-icon.svg" alt="Naaj Avatar" />
       </div>
       <div className="header-info">
         <h2>Naaj-IA</h2>

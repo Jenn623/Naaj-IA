@@ -27,15 +27,33 @@
   /* Esto fuerza a que el texto baje de línea si es muy largo */
   word-wrap: break-word;       
   word-break: break-word;
+
+  /* ESTA ES LA CLAVE PARA QUE LOS FORMATOS SE VEAN BIEN: */
+  white-space: pre-wrap;  /* Respeta los saltos de línea que manda Gemini */
+  word-wrap: break-word;
 }
 
-/* Estilo para las imágenes dentro del chat */
-.message-img-content {
-  width: 100%;         /* Ocupa el ancho disponible de la burbuja */
-  max-width: 250px;    /* Límite para que no sea gigante */
-  border-radius: 12px; /* Bordes redondeados bonitos */
-  display: block;
+/* Opcional: Asegúrate que las negritas resalten bien */
+.message-bubble strong {
+  font-weight: 700;
+  color: inherit; /* Usa el color del texto (blanco o negro según burbuja) */
+}
+
+/* Contenedor para controlar el tamaño */
+.message-image-container {
+  width: 100%;
+  max-width: 280px; /* Tamaño ideal para móvil */
+  border-radius: 12px;
+  overflow: hidden;
   margin-top: 5px;
+  background-color: #f0f0f0;
+}
+
+.message-img-content {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
 }
 
 /* Estilo burbuja Usuario (Color primario, ej. morado o azul según tu branding) */
@@ -50,4 +68,16 @@
   background-color: #f0f0f0;
   color: #333;
   border-bottom-left-radius: 4px;
+}
+
+.message-link {
+  color: #00e5ff; /* Un color cian brillante que combina con tu tema */
+  text-decoration: underline;
+  font-weight: bold;
+  word-break: break-all; /* Asegura que el link no rompa la burbuja si es muy largo */
+}
+
+/* Si el enlace está dentro de una burbuja blanca (mensaje de usuario, aunque raro) */
+.user-bubble .message-link {
+  color: #0000EE; /* Azul estándar para fondo blanco */
 }

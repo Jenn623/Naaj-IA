@@ -1,0 +1,111 @@
+/*estilos generales del componente para vista previa de imágenes*/
+/* src/components/ImagePreview.css */
+.image-preview-container {
+  width: 100%;
+  max-width: 300px; /* Ancho máximo para que no sea gigante */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: #fff;
+  margin-top: 10px;
+  position: relative;
+}
+
+/* Header estilo navegador (Mac style dots) */
+.browser-mockup-header {
+  background: #f0f0f0;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.browser-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.browser-dot.red { background: #ff5f56; }
+.browser-dot.yellow { background: #ffbd2e; }
+.browser-dot.green { background: #27c93f; }
+
+.browser-title {
+  font-size: 0.8rem;
+  color: #666;
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* El iframe que contiene la búsqueda */
+.image-iframe {
+  width: 100%;
+  height: 200px; /* Altura fija */
+  border: none;
+  /* Un truco para hacer zoom out y que se vean más imágenes */
+  transform: scale(0.75);
+  transform-origin: 0 0;
+  width: 133.33%; /* Compensar el zoom (100 / 0.75) */
+  height: 266.66%; /* Compensar el zoom (200 / 0.75) */
+}
+
+/* Capa transparente para mejorar el scroll en móvil */
+.iframe-overlay {
+  position: absolute;
+  top: 40px; /* Altura del header */
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: transparent;
+  pointer-events: none; /* Deja pasar los clics al iframe si se necesita */
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 200px; /* Altura fija para uniformidad */
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.real-image-content {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Recorta la imagen para llenar el cuadro sin deformar */
+  transition: transform 0.3s;
+}
+
+.real-image-content:hover {
+  transform: scale(1.05);
+}
+
+.image-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 20px;
+}
+
+.view-more-link {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  background: #fff;
+  color: #00e5ff; /* Tu color cian */
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-top: 1px solid #eee;
+}
+
+.view-more-link:hover {
+  background-color: #f9f9f9;
+}

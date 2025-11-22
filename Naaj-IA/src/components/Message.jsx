@@ -1,26 +1,69 @@
 import React from 'react';
 import '../styles/Message.css';
 
-// Agregamos la prop 'type' (puede ser 'text' o 'image')
-const Message = ({ text, isUser, type = 'text' }) => {
+const Message = ({ text, isUser, type = 'text', altText }) => {
   
-  // Función auxiliar para convertir URLs en enlaces clicables (sencillo)
+  // 1. Función para detectar enlaces (Links) - SE MANTIENE IGUAL
+  const parseLinks = (text) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.split(urlRegex).map((part, index) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a key={index} href={part} target="_blank" rel="noopener noreferrer" className="message-link">
+            {part.length > 30 ? '📍 Ver en Mapa' : part}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
+  // 2. Función MEJORADA: Formato de texto (Negritas y limpieza)
+  const formatMessage = (text) => {
+    if (!text) return "";
+
+    // Esta Regex divide el texto buscando bloques de asteriscos (dobles o simples)
+    // Captura cosas como **Texto** o *Texto* o ***Texto***
+    const parts = text.split(/(\*+.*?\*+)/g);
+
+    return parts.map((part, index) => {
+      // Verificamos si la parte parece un texto formateado (empieza y termina con *)
+      if (part.startsWith('*') && part.endsWith('*')) {
+        
+        // 🆕 LIMPIEZA AGRESIVA:
+        // Esta línea borra TODOS los asteriscos al inicio y al final, sean 1, 2 o 3.
+        const content = part.replace(/^[*]+|[*]+$/g, '');
+        
+        // Renderizamos en negrita (puedes cambiar strong por em si quisieras cursiva)
+        return <strong key={index}>{content}</strong>;
+      }
+      
+      // Si es texto normal, buscamos enlaces dentro
+      return <span key={index}>{parseLinks(part)}</span>;
+    });
+  };
+
   const renderContent = () => {
+    // CASO IMAGEN
     if (type === 'image') {
+      if (text === "NO_IMAGE" || !text) return null;
       return (
-        <img 
-          src={text} 
-          alt="Lugar recomendado" 
-          className="message-img-content" 
-          onError={(e) => e.target.style.display = 'none'} // Si falla, se oculta
-        />
+        <div className="message-image-container">
+          <img 
+            src={text} 
+            alt={altText || "Lugar turístico"} 
+            className="message-img-content" 
+            onError={(e) => {
+              e.target.onerror = null; 
+              e.target.src = "https://placehold.co/600x400?text=Error+Carga";
+            }}
+          />
+        </div>
       );
     }
 
-    // Si es texto y contiene un link (http...), intentamos renderizarlo (opcional pero útil para el mapa)
-    // Para mantenerlo simple, por ahora renderizamos el texto tal cual.
-    // Si quieres que el link sea azul y clicable, avísame y agregamos esa lógica extra.
-    return <p>{text}</p>;
+    // CASO TEXTO
+    return <p>{formatMessage(text)}</p>;
   };
 
   return (
