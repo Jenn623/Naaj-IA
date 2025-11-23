@@ -9,6 +9,8 @@ import google.generativeai as genai
 from langdetect import detect, LangDetectException
 import re
 import urllib.parse # 🆕 Necesario para crear links seguros
+import random # 🆕 Para sugeridos aleatorios
+from datetime import datetime # 🆕 Para fecha de reseña
 
 # -----------------------------
 # CONFIGURACIÓN INICIAL
@@ -302,6 +304,167 @@ def naaj():
 
     except Exception as e:
         print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
+    
+    
+# -----------------------------
+# ENDPOINT: OBTENER DESTINOS (LÓGICA SIMPLE)
+# -----------------------------
+@app.route("/naaj/destinations", methods=["GET"])
+@cross_origin()
+def get_destinations():
+    try:
+        lat = request.args.get('lat', type=float)
+        lng = request.args.get('lng', type=float)
+
+        all_places = []
+        
+        # 1. Recolectar TODOS los lugares del JSON
+        # Restaurantes
+        all_places.extend(CAMPECHE_DATA.get("restaurantes_famosos", []))
+        
+        # Puntos de interés (aplanar categorías)
+        for cat_list in CAMPECHE_DATA.get("puntos_interes_recomendados", {}).values():
+            all_places.extend(cat_list)
+            
+        # Lugares creados por la comunidad (si existen)
+        all_places.extend(CAMPECHE_DATA.get("lugares_comunidad", []))
+
+        # 2. Lógica de "POPULARES" (Rating)
+        # Ordenamos por rating descendente. Si no tiene, asumimos 4.0
+        popular = sorted(
+            all_places, 
+            key=lambda x: float(x.get("rating", 4.0)), 
+            reverse=True
+        )[:8] # Top 8
+
+        # 3. Lógica de "SUGERIDOS" (Ubicación o Aleatorio)
+        suggested = []
+        
+        if lat and lng:
+            # Si hay GPS: Ordenar por cercanía
+            # Calculamos distancia temporalmente
+            for p in all_places:
+                coords = p.get("coordenadas")
+                if coords:
+                    p["_temp_dist"] = haversine(lat, lng, coords["lat"], coords["lng"])
+                else:
+                    p["_temp_dist"] = 9999 # Muy lejos
+            
+            # Ordenar de menor a mayor distancia
+            suggested = sorted(all_places, key=lambda x: x.get("_temp_dist", 9999))[:8]
+        else:
+            # Si NO hay GPS: Aleatorio (Shuffle) para variedad
+            import random
+            # Hacemos una copia para no afectar el orden original
+            pool = all_places.copy()
+            random.shuffle(pool)
+            suggested = pool[:8]
+
+        return jsonify({
+            "popular": popular,
+            "suggested": suggested
+        })
+
+    except Exception as e:
+        print(f"❌ Error en destinations: {e}")
+        return jsonify({"popular": [], "suggested": []}), 500
+    
+# -----------------------------
+# ENDPOINT: SUBIR RESEÑA (CON AUTO-CREACIÓN)
+# -----------------------------
+@app.route("/review", methods=["POST"])
+@cross_origin()
+def add_review():
+    try:
+        data = request.get_json()
+        
+        # Datos de la reseña
+        place_name = data.get("place_name")
+        user_rating = float(data.get("rating"))
+        comment = data.get("comment", "")
+        
+        # 🆕 DATOS EXTRA DEL LUGAR (Por si es nuevo)
+        # El frontend debe enviarnos esto si viene de Google
+        place_address = data.get("address", "Dirección desconocida")
+        place_coords = data.get("coords", None) # {lat, lng}
+        place_category = data.get("category", "Lugar Recomendado")
+
+        if not place_name or not user_rating:
+            return jsonify({"error": "Faltan datos clave"}), 400
+
+        # 1. Buscar si el lugar YA existe en nuestro JSON
+        target_place = None
+        target_list_name = None # Para saber en qué lista guardarlo
+        
+        # Buscamos en restaurantes
+        for place in CAMPECHE_DATA.get("restaurantes_famosos", []):
+            if place["nombre"] == place_name:
+                target_place = place
+                target_list_name = "restaurantes_famosos"
+                break
+        
+        # Si no, buscamos en puntos de interés
+        if not target_place:
+            for cat_name, lista in CAMPECHE_DATA.get("puntos_interes_recomendados", {}).items():
+                for place in lista:
+                    if place["nombre"] == place_name:
+                        target_place = place
+                        # Nota: es difícil saber la categoría exacta aquí, solo lo encontramos
+                        break
+
+        # 2. LOGICA DE ADOPCIÓN (Si no existe, lo creamos)
+        if not target_place:
+            print(f"🆕 Lugar nuevo detectado: {place_name}. Agregándolo a la BD...")
+            
+            new_place_entry = {
+                "nombre": place_name,
+                "categoria": place_category,
+                "direccion": place_address,
+                "coordenadas": place_coords,
+                "rating": user_rating, # Empieza con el rating de este usuario
+                "reviews": [],
+                "origen": "Agregado por Comunidad 👥",
+                "imagen": "NO_IMAGE" 
+            }
+            
+            # Lo guardamos en una lista especial o en restaurantes por defecto
+            if "lugares_comunidad" not in CAMPECHE_DATA:
+                CAMPECHE_DATA["lugares_comunidad"] = []
+            
+            CAMPECHE_DATA["lugares_comunidad"].append(new_place_entry)
+            target_place = new_place_entry
+
+        # 3. Agregar la reseña
+        new_review = {
+            "user": "Viajero",
+            "rating": user_rating,
+            "comment": comment,
+            "date": datetime.now().strftime("%Y-%m-%d")
+        }
+        
+        if "reviews" not in target_place:
+            target_place["reviews"] = []
+            
+        target_place["reviews"].append(new_review)
+
+        # 4. Recalcular Promedio (Importante para actualizar el rating global)
+        total_score = sum(r["rating"] for r in target_place["reviews"])
+        new_average = round(total_score / len(target_place["reviews"]), 1)
+        target_place["rating"] = new_average
+
+        # 5. Guardar cambios en el archivo físico
+        with open("campeche.json", "w", encoding="utf-8") as f:
+            json.dump(CAMPECHE_DATA, f, ensure_ascii=False, indent=2)
+
+        return jsonify({
+            "message": "Reseña guardada exitosamente", 
+            "new_rating": new_average,
+            "is_new_place": (target_list_name is None)
+        })
+
+    except Exception as e:
+        print(f"Error guardando reseña: {e}")
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":

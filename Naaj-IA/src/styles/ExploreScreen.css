@@ -1,0 +1,228 @@
+/*estilos generales para la pantalla de explorador*/
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.explore-screen {
+  height: 100dvh;
+  width: 100vw;
+  /* Degradado Rosa a Azul/Cian */
+  background: linear-gradient(180deg, rgba(228, 0, 124, 1) 0%, rgba(105, 58, 176, 1) 50%, rgba(42, 243, 243, 1) 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* IMPORTANTE: Bloquea scroll en body */
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* --- ZONA DE SCROLL --- */
+.scroll-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* --- HEADER FLOTANTE --- */
+.explore-header {
+  position: absolute; /* Flota encima del scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+  
+  /* ESTADO INICIAL (GRANDE) */
+  height: 40vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  
+  background: transparent;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Animación suave */
+  pointer-events: none; /* Permite tocar el scroll de abajo */
+}
+
+/* Habilitar clicks en botones del header */
+.explore-header * {
+  pointer-events: auto;
+}
+
+/* ESTADO MINIMIZADO (BARRA SUPERIOR) */
+.explore-header.minimized {
+  height: 80px; /* Altura estándar de barra de navegación */
+  background: rgba(228, 0, 124, 0.98); /* Color sólido (Rosa Naaj) */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  
+  /* Alineación */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrar contenido verticalmente dentro de la barra */
+  padding: 0 20px; /* Padding lateral */
+}
+
+/* --- CONTENIDO DEL HEADER --- */
+.header-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* Apilado inicialmente */
+  align-items: center;
+  gap: 20px;
+  transition: all 0.4s ease;
+}
+
+.explore-header.minimized .header-content {
+  flex-direction: row; /* Elementos uno al lado del otro */
+  align-items: center; /* Centrados verticalmente */
+  width: 100%;
+  gap: 15px; /* Espacio entre el logo y el buscador */
+}
+
+/* --- LOGO Y TÍTULO --- */
+.header-branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.explore-header.minimized .header-branding {
+  flex-direction: row; /* Logo junto al título (si se mostrara) */
+}
+
+.logo-container img {
+  width: 120px; height: 120px; /* Grande */
+  border-radius: 50%;
+  background: white; padding: 4px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.4s ease;
+}
+
+.explore-header.minimized .logo-container img {
+  width: 45px; height: 45px; /* Pequeño */
+  box-shadow: none; padding: 0px;
+}
+
+/* Ocultamos el branding de texto ("Hola Explorador") para limpiar espacio */
+.explore-header.minimized .greeting-container, 
+.explore-header.minimized .title-naaj {
+  display: none; 
+}
+
+/* Títulos */
+.greeting-container {
+  transition: all 0.3s ease;
+  max-height: 50px; opacity: 1;
+}
+
+/* Ocultar textos al minimizar */
+.explore-header.minimized .greeting-container {
+  max-height: 0; opacity: 0; overflow: hidden; margin: 0;
+}
+
+.title-naaj {
+  color: white; font-size: 2rem; font-weight: 800; margin: 0;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* --- BUSCADOR --- */
+.search-pill {
+  width: 90%; max-width: 300px; height: 55px;
+  background: white; border-radius: 30px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5px 0 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.search-pill:active { transform: scale(0.98); }
+
+.explore-header.minimized .search-pill {
+  width: auto; flex: 1; height: 40px; /* Se estira */
+  margin: 0;    /* Quitamos márgenes extraños */
+  padding: 0 15px;
+}
+
+.search-placeholder {
+  color: #ff007f; font-weight: 700; font-size: 1rem;
+  transition: font-size 0.3s;
+}
+
+.explore-header.minimized .search-placeholder {
+  font-size: 0.85rem;
+  white-space: nowrap;       /* Evita que el texto salte de línea */
+  overflow: hidden;          /* Corta si es muy largo */
+  text-overflow: ellipsis;   /* Pone "..." si no cabe */
+}
+
+.search-icon-circle {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  color: #ff007f;
+}
+.search-icon-circle svg { width: 20px; height: 20px; }
+
+
+/* --- CUERPO Y CARRUSELES --- */
+
+/* ESTA REGLA ES LA QUE ARREGLA TU PROBLEMA DE POSICIÓN */
+.explore-body {
+  /* Empujamos el contenido hacia abajo para que empiece 
+     donde termina el Header gigante (40vh aprox) */
+  padding-top: 38vh; 
+  padding-bottom: 20px;
+}
+
+.section-block {
+  margin-bottom: 40px;
+  /* Un poco de padding extra para separar secciones */
+  padding-top: 10px; 
+}
+
+.section-header {
+  padding: 0 20px; margin-bottom: 15px;
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+
+.section-header h3 {
+  color: white; margin: 0; font-size: 1.2rem; font-weight: 700;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.badge, .badge-star {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 4px 10px; border-radius: 12px;
+  color: white; font-size: 0.75rem; font-weight: bold;
+  backdrop-filter: blur(4px);
+}
+
+/* Carrusel */
+.horizontal-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 0 20px 20px 20px;
+  scrollbar-width: none;
+}
+.horizontal-scroll::-webkit-scrollbar { display: none; }
+
+/* Loading */
+.loading-state {
+  height: 300px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  color: white; opacity: 0.8; margin-top: 20vh;
+}
+.spinner {
+  width: 40px; height: 40px;
+  border: 4px solid rgba(255,255,255,0.3);
+  border-top-color: white; border-radius: 50%;
+  animation: spin 1s linear infinite; margin-bottom: 15px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

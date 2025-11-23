@@ -34,6 +34,30 @@ export const sendMessageToNaaj = async (question, history = [], location = null)
   }
 };
 
+// 🆕 OBTENER DESTINOS (Populares y Sugeridos)
+export const getDestinations = async (lat = null, lng = null) => {
+  try {
+    // Si hay GPS, lo enviamos en la URL
+    const query = lat && lng ? `?lat=${lat}&lng=${lng}` : '';
+    const response = await api.get(`/naaj/destinations${query}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error obteniendo destinos:", error);
+    return { popular: [], suggested: [] }; // Retorno seguro en caso de error
+  }
+};
+
+// 🆕 ENVIAR RESEÑA
+export const submitReview = async (reviewData) => {
+  try {
+    const response = await api.post('/review', reviewData);
+    return response.data;
+  } catch (error) {
+    console.error("Error enviando reseña:", error);
+    throw error;
+  }
+};
+
 /*const isProduction = import.meta.env.MODE === 'production'; // Si usas Vite
 // const isProduction = process.env.NODE_ENV === 'production'; // Si usas Create React App
 

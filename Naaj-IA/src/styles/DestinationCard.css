@@ -1,0 +1,47 @@
+/*estilos generales para las tarjetas con los destinos*/
+
+.dest-card {
+  min-width: 200px; /* Ancho fijo para el carrusel */
+  height: 250px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  margin-right: 15px; /* Espacio entre tarjetas */
+  flex-shrink: 0; /* Evita que se aplasten */
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.dest-card:active {
+  transform: scale(0.98);
+}
+
+.dest-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  padding: 15px;
+  color: white;
+}
+
+.dest-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dest-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}

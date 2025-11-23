@@ -6,32 +6,48 @@
   "municipios": {
     "Campeche": [
       {
+        "id": 1,
         "nombre": "La Pigua",
         "categoria": "Mariscos",
         "direccion": "C. 59, Centro Histórico, Campeche (Malecón area)",
         "coordenadas": {"lat": 19.8350, "lng": -90.5290},
-        "fuente": "TripAdvisor | https://www.tripadvisor.com/Restaurant_Review-g1632078-d1050987-Reviews-La_Pigua-Campeche_Yucatan_Peninsula.html"
+        "fuente": "TripAdvisor | https://www.tripadvisor.com/Restaurant_Review-g1632078-d1050987-Reviews-La_Pigua-Campeche_Yucatan_Peninsula.html",
+        "rating": 4.8,
+        "reviews": [],
+        "imagen": "https://media-cdn.tripadvisor.com/media/photo-s/1a/07/93/28/la-pigua.jpg"
       },
       {
+        "id": 2,
         "nombre": "La Palapa del Tío Fito",
         "categoria": "Mariscos",
         "direccion": "Av. Resurgimiento s/n, Col. Lazareto, San Francisco de Campeche, Camp.",
         "coordenadas": {"lat": 19.8360, "lng": -90.5295},
-        "fuente": "Sitio oficial | https://lapalapadeltiofito.com/en/ | TripAdvisor https://www.tripadvisor.com/Restaurant_Review-g1632078-d2620495-Reviews-La_Palapa_del_Tio_Fito-Campeche_Yucatan_Peninsula.html"
+        "fuente": "Sitio oficial | https://lapalapadeltiofito.com/en/ | TripAdvisor https://www.tripadvisor.com/Restaurant_Review-g1632078-d2620495-Reviews-La_Palapa_del_Tio_Fito-Campeche_Yucatan_Peninsula.html",
+        "rating": 4.6,
+        "reviews": [],
+        "imagen": "https://media-cdn.tripadvisor.com/media/photo-s/1b/4f/95/6a/vista-desde-nuestra-terraza.jpg"
       },
       {
+        "id": 3,
         "nombre": "Marganzo",
         "categoria": "Mariscos / Cocina local",
         "direccion": "Centro Histórico, Campeche",
         "coordenadas": {"lat": 19.8465, "lng": -90.5325},
-        "fuente": "Listados locales / Wanderlog / TripAdvisor"
+        "fuente": "Listados locales / Wanderlog / TripAdvisor",
+        "rating": 4.5,
+        "reviews": [],
+        "imagen": "https://media-cdn.tripadvisor.com/media/photo-s/0d/bd/ec/04/marganzo.jpg"
       },
       {
+        "id": 4,
         "nombre": "Aduana 59",
         "categoria": "Alta cocina / Mexicana contemporánea",
         "direccion": "Calle 59, Centro Histórico, Campeche",
         "coordenadas": {"lat": 19.8450, "lng": -90.5340},
-        "fuente": "TripAdvisor | https://www.tripadvisor.com/Restaurant_Review-g1632078-d18855041-Reviews-Aduana_59-Campeche_Yucatan_Peninsula.html"
+        "fuente": "TripAdvisor | https://www.tripadvisor.com/Restaurant_Review-g1632078-d18855041-Reviews-Aduana_59-Campeche_Yucatan_Peninsula.html",
+        "rating": 4.7,
+        "reviews": [],
+        "imagen": "https://media-cdn.tripadvisor.com/media/photo-s/1c/d3/c7/2a/aduana-59.jpg"
       },
       {
         "nombre": "Bartola (Cafetería)",
@@ -122,5 +138,6 @@
         "fuente": "TripAdvisor listings"
       }
     ]
-  }
+  },
+  "lugares_comunidad": []
 }
