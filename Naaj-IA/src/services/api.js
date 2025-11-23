@@ -5,7 +5,7 @@ import axios from 'axios';
 // Creamos una instancia de axios con la URL base de tu backend
 // Si tu backend corre en otro puerto o IP, cámbialo aquí.
 const api = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: 'https://naaj-ia-2.onrender.com',
   headers: { 'Content-Type': 'application/json' }, 
 }); // baseURL: 'http://localhost:3000',
 // baseURL: 'https://naaj-ia-1.onrender.com'
