@@ -10,10 +10,9 @@ const api = axios.create({
 }); // baseURL: 'http://localhost:3000',
 // baseURL: 'https://naaj-ia.onrender.com'
 
-// AGREGAMOS EL PARÁMETRO 'history' AQUÍ
-export const sendMessageToNaaj = async (question, history = []) => {
+// Modificamos la firma para aceptar 'location'
+export const sendMessageToNaaj = async (question, history = [], location = null) => {
   try {
-    // Limpiamos el historial para enviar solo texto y rol (ahorrar datos)
     const cleanHistory = history.map(msg => ({
       text: msg.text,
       isUser: msg.isUser
@@ -21,10 +20,13 @@ export const sendMessageToNaaj = async (question, history = []) => {
 
     const response = await api.post('/naaj', {
       question: question,
-      history: cleanHistory, // <--- ENVIAMOS EL HISTORIAL
-      // lat: ... (si lo tienes)
-      // lng: ...
+      history: cleanHistory,
+      
+      // 🆕 ENVIAMOS LAT Y LNG (Si existen)
+      lat: location ? location.lat : null,
+      lng: location ? location.lng : null
     });
+    
     return response.data;
   } catch (error) {
     console.error("Error:", error);

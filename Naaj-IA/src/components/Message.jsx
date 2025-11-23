@@ -8,9 +8,20 @@ const Message = ({ text, isUser, type = 'text', altText }) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.split(urlRegex).map((part, index) => {
       if (part.match(urlRegex)) {
+        let cleanUrl = part.replace(/[\]).,]+$/, ""); 
+        
+        // Si después de limpiar quedó algo (por si acaso)
+        if (!cleanUrl) return part;
         return (
-          <a key={index} href={part} target="_blank" rel="noopener noreferrer" className="message-link">
-            {part.length > 30 ? '📍 Ver en Mapa' : part}
+          <a 
+            key={index} 
+            href={cleanUrl} // Usamos la URL limpia
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="message-link"
+          >
+            {/* Mantenemos el texto corto para que se vea bonito */}
+            📍 Ver en Mapa
           </a>
         );
       }

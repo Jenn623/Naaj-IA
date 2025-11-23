@@ -15,6 +15,9 @@ const ChatScreen = () => {
   ]);
   const [loading, setLoading] = useState(false);
 
+  // NUEVO ESTADO PARA UBICACIÓN
+  const [userLocation, setUserLocation] = useState({ lat: null, lng: null });
+
   // Referencia para el scroll automático al último mensaje
   const messagesEndRef = useRef(null);
 
@@ -26,6 +29,25 @@ const ChatScreen = () => {
     scrollToBottom();
   }, [messages]);
 
+  // 🆕 EFECTO PARA OBTENER GPS AL INICIAR
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          });
+          console.log("📍 Ubicación obtenida:", position.coords);
+        },
+        (error) => {
+          console.log("⚠️ No se pudo obtener ubicación:", error.message);
+          // No pasa nada, el backend funcionará en modo "general"
+        }
+      );
+    }
+  }, []);
+
   const handleSendMessage = async (text) => {
     // 1. Agregamos el mensaje del usuario
     const userMessage = { id: Date.now(), text: text, isUser: true, type: 'text' };
@@ -34,7 +56,7 @@ const ChatScreen = () => {
 
     try {
       // 2. Llamamos al Backend
-      const data = await sendMessageToNaaj(text, messages);
+      const data = await sendMessageToNaaj(text, messages, userLocation);
       
       // 3. PROCESAMOS LA RESPUESTA (Aquí está el cambio principal)
       

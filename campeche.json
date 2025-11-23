@@ -1,179 +1,126 @@
 {
   "estado": "Campeche",
-  "fuentes": [
-    "Secretaría de Turismo de Campeche (SECTUR estatal)",
-    "Gobierno de México - SECTUR",
-    "INEGI",
-    "Plan Estatal de Desarrollo 2024-2027 (Gobierno de Campeche)",
-    "La Jornada Maya - Reporte SECTUR estatal 2024",
-    "La República Peninsular - Reporte estadístico 2024",
-    "TripAdvisor - listados locales",
-    "Sitios oficiales y guías locales"
-  ],
-
-  "estadisticas_turisticas": {
-    "visitantes_2024": 1700000,
-    "crecimiento_anual": "10%",
-    "derrama_economica_2024_mxn": 4200000000,
-    "congresos_ultimos_3_anios": 1000,
-    "visitantes_congresos": 52000,
-    "ocupacion_hotelera_2023": "45.97%",
-    "alojamientos_totales": 285,
-    "guias_turisticos_certificados": 92
-  },
-
-  "transporte_moderno": {
-    "tren_maya": {
-      "descripcion": "Sistema ferroviario moderno que conecta la península de Yucatán. Campeche cuenta con estaciones clave como San Francisco Campeche y Edzná.",
-      "beneficio": "Facilita llegada de turistas nacionales e internacionales."
-    },
-    "tren_ligero_campeche": {
-      "descripcion": "Proyecto urbano de movilidad interna de la zona metropolitana (conexión a estaciones y puntos turísticos).",
-      "beneficio": "Mejor accesibilidad para visitantes dentro de la ciudad."
-    },
-    "koox_tranvia": {
-      "descripcion": "Tranvía turístico destinado a recorrer el centro histórico y zonas emblemáticas.",
-      "beneficio": "Ofrece rutas guiadas para turistas sin necesidad de vehículo propio."
-    }
-  },
-
-  "puntos_interes_recomendados": {
-    "historia_y_cultura": [
+  "categoria": "restaurantes",
+  "version": "1.0",
+  "descripcion": "Módulo de restaurantes (opción C: mezcla balanceada) para Campeche. Fuentes incluidas en cada entrada.",
+  "municipios": {
+    "Campeche": [
       {
-        "nombre": "Fuerte de San Miguel",
-        "categoria": "Museo histórico",
-        "ubicacion": "San Francisco de Campeche",
-        "coordenadas": { "lat": 19.8203, "lng": -90.5363 }
+        "nombre": "La Pigua",
+        "categoria": "Mariscos",
+        "direccion": "C. 59, Centro Histórico, Campeche (Malecón area)",
+        "coordenadas": {"lat": 19.8350, "lng": -90.5290},
+        "fuente": "TripAdvisor | https://www.tripadvisor.com/Restaurant_Review-g1632078-d1050987-Reviews-La_Pigua-Campeche_Yucatan_Peninsula.html"
       },
       {
-        "nombre": "Fuerte de San José el Alto",
-        "categoria": "Museo marítimo",
-        "ubicacion": "Campeche",
-        "coordenadas": { "lat": 19.8429, "lng": -90.5231 }
+        "nombre": "La Palapa del Tío Fito",
+        "categoria": "Mariscos",
+        "direccion": "Av. Resurgimiento s/n, Col. Lazareto, San Francisco de Campeche, Camp.",
+        "coordenadas": {"lat": 19.8360, "lng": -90.5295},
+        "fuente": "Sitio oficial | https://lapalapadeltiofito.com/en/ | TripAdvisor https://www.tripadvisor.com/Restaurant_Review-g1632078-d2620495-Reviews-La_Palapa_del_Tio_Fito-Campeche_Yucatan_Peninsula.html"
       },
       {
-        "nombre": "Baluarte de la Soledad",
-        "categoria": "Museo de arquitectura",
-        "ubicacion": "Centro Histórico, Campeche",
-        "coordenadas": { "lat": 19.8457, "lng": -90.5348 }
+        "nombre": "Marganzo",
+        "categoria": "Mariscos / Cocina local",
+        "direccion": "Centro Histórico, Campeche",
+        "coordenadas": {"lat": 19.8465, "lng": -90.5325},
+        "fuente": "Listados locales / Wanderlog / TripAdvisor"
+      },
+      {
+        "nombre": "Aduana 59",
+        "categoria": "Alta cocina / Mexicana contemporánea",
+        "direccion": "Calle 59, Centro Histórico, Campeche",
+        "coordenadas": {"lat": 19.8450, "lng": -90.5340},
+        "fuente": "TripAdvisor | https://www.tripadvisor.com/Restaurant_Review-g1632078-d18855041-Reviews-Aduana_59-Campeche_Yucatan_Peninsula.html"
+      },
+      {
+        "nombre": "Bartola (Cafetería)",
+        "categoria": "Cafetería / Desayuno",
+        "direccion": "Centro Histórico, Campeche",
+        "coordenadas": {"lat": 19.8460, "lng": -90.5330},
+        "fuente": "Reseñas locales / TripAdvisor references"
+      },
+      {
+        "nombre": "El Bastión",
+        "categoria": "Comida campechana",
+        "direccion": "Calle 57 #2A entre 8 y 10, Campeche",
+        "coordenadas": {"lat": 19.8452, "lng": -90.5341},
+        "fuente": "Facebook / listados locales"
       }
     ],
-
-    "gastronomia": [
+    "Ciudad del Carmen": [
       {
-        "nombre": "Calle 59 (zona gastronómica)",
-        "tipo": "Zona gastronómica",
-        "especialidades": ["Cocina campechana", "Fusión", "Mariscos"],
-        "ubicacion": "Centro Histórico"
+        "nombre": "La Pigua (Cd. del Carmen)",
+        "categoria": "Mariscos",
+        "direccion": "Ciudad del Carmen, Campeche (Malecón area)",
+        "coordenadas": null,
+        "fuente": "TripAdvisor listings | https://www.tripadvisor.com.mx/Restaurants-g317140-c33-Ciudad_del_Carmen_Yucatan_Peninsula.html"
+      },
+      {
+        "nombre": "Coctelería Cajun",
+        "categoria": "Mariscos / Coctelería",
+        "direccion": "Ciudad del Carmen, Campeche",
+        "coordenadas": null,
+        "fuente": "TripAdvisor listings"
       }
     ],
-
-    "dulces_tipicos": [
+    "Champotón": [
       {
-        "nombre": "Dulcería La Campechana",
-        "especialidades": ["Campechana", "Cocoyol cristalizado", "Merengues"],
-        "ubicacion": "Centro Histórico, Campeche"
+        "nombre": "Restaurant Pelicanos II",
+        "categoria": "Mariscos",
+        "direccion": "Champotón, Campeche",
+        "coordenadas": null,
+        "fuente": "TripAdvisor | https://www.tripadvisor.com.mx/Restaurants-g1026030-Champoton_Yucatan_Peninsula.html"
       },
       {
-        "nombre": "Casa Vieja - Dulcería y Artesanías",
-        "especialidades": ["Dulces regionales", "Productos artesanales"],
-        "ubicacion": "Centro Histórico, Campeche"
-      },
-            {
-        "nombre": "Mercado Principal 'Pedro Sáinz de Baranda'",
-        "tipo": "Comida tradicional / mercado",
-        "especialidades": ["Merengues", "Cocadas", "Boca de payaso"],
-        "ubicacion": "Campeche"
+        "nombre": "El Timón",
+        "categoria": "Mariscos / Cocina local",
+        "direccion": "Champotón, Campeche (Malecón area)",
+        "coordenadas": null,
+        "fuente": "TripAdvisor listings"
       }
     ],
-
-    "lugares_naturaleza": [
+    "Isla Aguada": [
       {
-        "nombre": "Zona Arqueológica de Edzná",
-        "categoria": "Arqueología",
-        "ubicacion": "Edzná, Campeche",
-        "coordenadas": { "lat": 19.5937, "lng": -90.2267 }
+        "nombre": "Mar y Cruz 2",
+        "categoria": "Mariscos",
+        "direccion": "Isla Aguada, Campeche",
+        "coordenadas": null,
+        "fuente": "TripAdvisor listings | https://www.tripadvisor.com.mx/Restaurants-g6368948-Isla_Aguada_Yucatan_Peninsula.html"
       },
       {
-        "nombre": "Isla Aguada",
-        "categoria": "Playa / Naturaleza",
-        "ubicacion": "Isla Aguada, Campeche",
-        "coordenadas": { "lat": 18.6136, "lng": -91.8409 }
+        "nombre": "Casa Grande (Isla Aguada)",
+        "categoria": "Mariscos / Comida local",
+        "direccion": "Isla Aguada, Campeche",
+        "coordenadas": null,
+        "fuente": "Facebook listing / local references"
+      }
+    ],
+    "Palizada": [
+      {
+        "nombre": "Café Galería La Caña Del Timón",
+        "categoria": "Cafetería / Café galería",
+        "direccion": "Palizada, Campeche",
+        "coordenadas": null,
+        "fuente": "TripAdvisor listings"
+      },
+      {
+        "nombre": "Vicanto Restaurante & Muelle",
+        "categoria": "Cocina regional / Muelle",
+        "direccion": "Palizada, Campeche (Centro)",
+        "coordenadas": {"lat": 18.2546, "lng": -92.09148},
+        "fuente": "Facebook page | https://www.facebook.com/vicantomuelle/"
+      }
+    ],
+    "Other": [
+      {
+        "nombre": "Restaurant Familiar El Grillo Marino",
+        "municipio": "Palizada",
+        "categoria": "Mariscos / Cocina local",
+        "direccion": "Palizada, Campeche",
+        "coordenadas": null,
+        "fuente": "TripAdvisor listings"
       }
     ]
-  },
-
-  "restaurantes_famosos": [
-    {
-      "nombre": "Aduana 59",
-      "categoria": "Alta cocina / Mexicana contemporánea",
-      "direccion": "Calle 59, Centro Histórico, Campeche",
-      "coordenadas": { "lat": 19.8450, "lng": -90.5340 },
-      "fuente": "TripAdvisor / reseñas locales"
-    },
-    {
-      "nombre": "La María Cocina Peninsular",
-      "categoria": "Cocina peninsular",
-      "direccion": "Malecón / Centro Histórico, Campeche",
-      "coordenadas": { "lat": 19.8325, "lng": -90.5280 },
-      "fuente": "Guías locales / reseñas"
-    },
-    {
-      "nombre": "Marganzo",
-      "categoria": "Mariscos / Cocina local",
-      "direccion": "Centro Histórico, Campeche",
-      "coordenadas": { "lat": 19.8465, "lng": -90.5325 },
-      "fuente": "TripAdvisor / listados locales"
-    },
-    {
-      "nombre": "La Palapa del Tío Fito",
-      "categoria": "Mariscos / Vista al mar",
-      "direccion": "Malecón, Campeche",
-      "coordenadas": { "lat": 19.8360, "lng": -90.5295 },
-      "imagen": "https://www.google.com/url?sa=i&url=https%3A%2F%2Flapalapadeltiofito.com%2F&psig=AOvVaw0Yx331q_HP2OX8Vy6dp41a&ust=1763872260266000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCLC2jLH2hJEDFQAAAAAdAAAAABAE",
-      "fuente": "Sitio oficial / TripAdvisor"
-    },
-    {
-      "nombre": "La Pigua",
-      "categoria": "Mariscos",
-      "direccion": "Malecón, Campeche",
-      "coordenadas": { "lat": 19.8350, "lng": -90.5290 },
-      "fuente": "Reseñas locales / TripAdvisor"
-    },
-    {
-      "nombre": "Ronsel Seafood & Grill",
-      "categoria": "Mariscos / Sunset view",
-      "direccion": "Zona del Malecón, Campeche",
-      "coordenadas": { "lat": 19.8330, "lng": -90.5310 },
-      "fuente": "Listados de restaurantes"
-    },
-    {
-      "nombre": "Casa Vieja del Río",
-      "categoria": "Comida mexicana / Vista al río",
-      "direccion": "Malecón / Centro, Campeche",
-      "coordenadas": { "lat": 19.8315, "lng": -90.5285 },
-      "fuente": "Guías locales / TripAdvisor"
-    },
-    {
-      "nombre": "Bartola (café y desayunos)",
-      "categoria": "Cafetería / Desayuno",
-      "direccion": "Centro Histórico, Campeche",
-      "coordenadas": { "lat": 19.8460, "lng": -90.5330 },
-      "fuente": "Reseñas locales"
-    },
-    {
-      "nombre": "Los Delfines",
-      "categoria": "Mariscos",
-      "direccion": "Malecón, Campeche",
-      "coordenadas": { "lat": 19.8348, "lng": -90.5289 },
-      "fuente": "TripAdvisor"
-    },
-    {
-      "nombre": "El Bastión",
-      "categoria": "Comida campechana",
-      "direccion": "Calle 57 #2A entre 8 y 10, Campeche",
-      "coordenadas": { "lat": 19.8452, "lng": -90.5341 },
-      "fuente": "Facebook / publicación local"
-    }
-  ]
+  }
 }
