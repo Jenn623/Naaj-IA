@@ -5,10 +5,10 @@ import axios from 'axios';
 // Creamos una instancia de axios con la URL base de tu backend
 // Si tu backend corre en otro puerto o IP, cámbialo aquí.
 const api = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: 'https://naaj-ia-1.onrender.com',
   headers: { 'Content-Type': 'application/json' }, 
 }); // baseURL: 'http://localhost:3000',
-// baseURL: 'https://naaj-ia.onrender.com'
+// baseURL: 'https://naaj-ia-1.onrender.com'
 
 // Modificamos la firma para aceptar 'location'
 export const sendMessageToNaaj = async (question, history = [], location = null) => {
