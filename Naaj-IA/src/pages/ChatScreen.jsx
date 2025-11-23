@@ -9,18 +9,67 @@ import { sendMessageToNaaj } from '../services/api';
 import '../styles/ChatScreen.css';
 
 const ChatScreen = () => {
-  // Estado inicial con un mensaje de bienvenida
-  const [messages, setMessages] = useState([
-    { id: 1, text: "¡Hola! Soy Naaj-IA. ¿En qué puedo ayudarte hoy sobre Campeche?", isUser: false }
-  ]);
-  const [loading, setLoading] = useState(false);
+  // 1. Función auxiliar para obtener la fecha de HOY en México
+  const getMexicoDate = () => {
+    return new Date().toLocaleDateString('es-MX', { timeZone: 'America/Mexico_City' });
+  };
 
-  // NUEVO ESTADO PARA UBICACIÓN
+  // Estado inicial (vacío al principio para permitir la carga)
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  
+  // Nuevo estado para ubicación (para mantener la coherencia con lo que ya tenías)
   const [userLocation, setUserLocation] = useState({ lat: null, lng: null });
 
-  // Referencia para el scroll automático al último mensaje
   const messagesEndRef = useRef(null);
 
+  // ---------------------------------------------------------
+  // 2. EFECTO DE CARGA INICIAL (Recuperar Memoria)
+  // ---------------------------------------------------------
+  useEffect(() => {
+    // A. Obtener GPS (Igual que antes)
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          });
+        },
+        (error) => console.log("Ubicación no permitida")
+      );
+    }
+
+    // B. RECUPERAR CHAT GUARDADO
+    const savedChat = localStorage.getItem('naaj_chat_history');
+    const savedDate = localStorage.getItem('naaj_chat_date');
+    const today = getMexicoDate();
+
+    if (savedChat && savedDate === today) {
+      // Si hay chat y es del día de HOY, lo cargamos
+      setMessages(JSON.parse(savedChat));
+    } else {
+      // Si es de ayer, o no existe, iniciamos limpio
+      localStorage.removeItem('naaj_chat_history');
+      localStorage.setItem('naaj_chat_date', today); // Guardamos la fecha de hoy
+      
+      setMessages([
+        { id: 1, text: "¡Hola! Soy Naaj-IA. ¿En qué puedo ayudarte hoy sobre Campeche?", isUser: false }
+      ]);
+    }
+  }, []);
+
+  // ---------------------------------------------------------
+  // 3. EFECTO DE GUARDADO AUTOMÁTICO
+  // ---------------------------------------------------------
+  useEffect(() => {
+    // Cada vez que 'messages' cambie, lo guardamos en el celular
+    if (messages.length > 0) {
+      localStorage.setItem('naaj_chat_history', JSON.stringify(messages));
+    }
+  }, [messages]);
+
+  // Scroll automático
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -29,58 +78,33 @@ const ChatScreen = () => {
     scrollToBottom();
   }, [messages]);
 
-  // 🆕 EFECTO PARA OBTENER GPS AL INICIAR
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setUserLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
-          console.log("📍 Ubicación obtenida:", position.coords);
-        },
-        (error) => {
-          console.log("⚠️ No se pudo obtener ubicación:", error.message);
-          // No pasa nada, el backend funcionará en modo "general"
-        }
-      );
-    }
-  }, []);
-
+  // ---------------------------------------------------------
+  // MANEJO DE MENSAJES (Igual que antes, solo pequeños ajustes)
+  // ---------------------------------------------------------
   const handleSendMessage = async (text) => {
-    // 1. Agregamos el mensaje del usuario
     const userMessage = { id: Date.now(), text: text, isUser: true, type: 'text' };
+    // Actualizamos estado (esto disparará el useEffect de guardado arriba)
     setMessages((prev) => [...prev, userMessage]);
     setLoading(true);
 
     try {
-      // 2. Llamamos al Backend
       const data = await sendMessageToNaaj(text, messages, userLocation);
       
-      // 3. PROCESAMOS LA RESPUESTA (Aquí está el cambio principal)
-      
       if (data.messages && data.messages.length > 0) {
-        // CASO A: El backend nos envió múltiples burbujas (Afirmación, Foto, Mapa)
-        
         const newBotMessages = data.messages.map((msg, index) => ({
-          id: Date.now() + 1 + index, // IDs únicos
-          text: msg.content,          // El contenido (texto o url de imagen)
+          id: Date.now() + 1 + index,
+          text: msg.content,
           isUser: false,
-          type: msg.type || 'text',    // 'text' o 'image'
-          altText: msg.alt_text
+          type: msg.type || 'text',
+          altText: msg.alt_text // Corregido el typo anterior
         }));
-
-        // Agregamos todos los mensajes de Naaj al chat
         setMessages((prev) => [...prev, ...newBotMessages]);
-
       } else {
-        // CASO B: Respuesta normal de una sola burbuja (fallback)
         const botMessage = { 
           id: Date.now() + 1, 
           text: data.answer || "Lo siento, no entendí.", 
-          isUser: false,
-          type: 'text'
+          isUser: false, 
+          type: 'text' 
         };
         setMessages((prev) => [...prev, botMessage]);
       }
@@ -90,8 +114,8 @@ const ChatScreen = () => {
       const errorMessage = { 
         id: Date.now() + 1, 
         text: "Error de conexión. Intenta de nuevo.", 
-        isUser: false,
-        type: 'text'
+        isUser: false, 
+        type: 'text' 
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
@@ -105,7 +129,13 @@ const ChatScreen = () => {
       
       <div className="messages-container">
         {messages.map((msg) => (
-          <Message key={msg.id} text={msg.text} isUser={msg.isUser} type={msg.type} altText={msg.altText} />
+          <Message 
+            key={msg.id} 
+            text={msg.text} 
+            isUser={msg.isUser} 
+            type={msg.type} 
+            altText={msg.altText} 
+          />
         ))}
         {loading && <div className="typing-indicator">Naaj está escribiendo...</div>}
         <div ref={messagesEndRef} />
