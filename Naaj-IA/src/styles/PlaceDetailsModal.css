@@ -1,0 +1,116 @@
+.details-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 200; /* Encima de todo */
+  display: flex; justify-content: center; align-items: flex-end; /* Estilo Bottom Sheet */
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.2s;
+  transition: backdrop-filter 0.3s ease;
+}
+
+/* 🆕 EFECTO BLUR CUANDO SE ABRE RESEÑA */
+.details-overlay.blurred-mode .details-card {
+  filter: blur(4px); /* Desenfoca la tarjeta */
+  transform: scale(0.98); /* La hace un poquito más chica para dar profundidad */
+  pointer-events: none; /* Evita clicks accidentales en el fondo */
+  transition: all 0.3s ease;
+}
+
+/* 🆕 BOTÓN DE ACCIÓN PRINCIPAL */
+.action-review-btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  background: #e91e63;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+  transition: transform 0.2s;
+}
+
+.action-review-btn:active {
+  transform: scale(0.98);
+}
+
+/* Ajuste info section */
+.info-section {
+  margin-bottom: 10px;
+}
+
+.details-card {
+  background: white;
+  width: 100%; max-width: 500px;
+  height: 85vh; /* Ocupa casi toda la pantalla */
+  border-radius: 20px 20px 0 0;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+  display: flex; flex-direction: column;
+}
+
+/* HEADER */
+.details-header {
+  height: 250px;
+  background-size: cover; background-position: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.close-details-btn {
+  position: absolute; top: 15px; right: 15px;
+  background: rgba(0,0,0,0.5); color: white;
+  border: none; width: 35px; height: 35px; border-radius: 50%;
+  font-size: 1.5rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.header-gradient {
+  position: absolute; bottom: 0; left: 0; width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  padding: 20px; color: white; box-sizing: border-box;
+}
+
+.header-gradient h2 { margin: 0; font-size: 1.8rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+.details-rating { margin: 5px 0 0 0; font-size: 1rem; opacity: 0.9; }
+
+/* BODY */
+.details-body { padding: 20px; }
+
+.info-row { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
+.info-item { display: flex; align-items: flex-start; gap: 10px; }
+.info-item .icon { font-size: 1.2rem; }
+.info-item p { margin: 0; color: #555; font-size: 0.95rem; line-height: 1.4; }
+
+.status.open { color: #2ecc71; font-weight: bold; }
+.status.closed { color: #e74c3c; font-weight: bold; }
+.status.unknown { color: #95a5a6; }
+
+.divider { border: 0; border-top: 1px solid #eee; margin: 10px 0 20px 0; }
+
+/* RESEÑAS */
+.reviews-section h3 { margin-top: 0; color: #333; }
+
+.review-item {
+  background: #f9f9f9; padding: 15px; border-radius: 12px; margin-bottom: 10px;
+}
+.review-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.user-name { font-weight: bold; color: #e91e63; font-size: 0.9rem; }
+.review-stars { color: #ffc107; }
+.review-comment { margin: 5px 0; font-size: 0.9rem; color: #444; font-style: italic; }
+.review-date { font-size: 0.75rem; color: #999; }
+
+.empty-reviews {
+  text-align: center; padding: 30px; color: #888;
+  background: #f5f5f5; border-radius: 15px; border: 2px dashed #ddd;
+}
+.empty-icon { font-size: 2rem; display: block; margin-bottom: 10px; }
+.be-first-btn {
+  margin-top: 10px; padding: 8px 16px; background: #e91e63; color: white;
+  border: none; border-radius: 20px; cursor: pointer; font-weight: bold;
+}
+
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }

@@ -5,7 +5,7 @@ import axios from 'axios';
 // Creamos una instancia de axios con la URL base de tu backend
 // Si tu backend corre en otro puerto o IP, cámbialo aquí.
 const api = axios.create({
-  baseURL: 'https://naaj-ia-2.onrender.com',
+  baseURL: 'http://localhost:5000',
   headers: { 'Content-Type': 'application/json' }, 
 }); // baseURL: 'http://localhost:3000',
 // baseURL: 'https://naaj-ia-1.onrender.com'
@@ -39,7 +39,7 @@ export const getDestinations = async (lat = null, lng = null) => {
   try {
     // Si hay GPS, lo enviamos en la URL
     const query = lat && lng ? `?lat=${lat}&lng=${lng}` : '';
-    const response = await api.get(`/naaj/destinations${query}`);
+    const response = await api.get(`/explore/destinations${query}`);
     return response.data;
   } catch (error) {
     console.error("Error obteniendo destinos:", error);
@@ -55,6 +55,30 @@ export const submitReview = async (reviewData) => {
   } catch (error) {
     console.error("Error enviando reseña:", error);
     throw error;
+  }
+};
+
+// src/services/api.js
+export const searchPlaces = async (query, lat, lng) => {
+  try {
+    const url = `/search_places?q=${query}${lat ? `&lat=${lat}&lng=${lng}` : ''}`;
+    const response = await api.get(url);
+    return response.data;
+  } catch (error) {
+    console.error("Error buscando:", error);
+    return [];
+  }
+};
+
+// 🆕 OBTENER DETALLES DE UN LUGAR
+export const getPlaceDetails = async (placeName, lat = null, lng = null) => {
+  try {
+    const query = `?name=${encodeURIComponent(placeName)}${lat ? `&lat=${lat}&lng=${lng}` : ''}`;
+    const response = await api.get(`/place_details${query}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error obteniendo detalles:", error);
+    return null;
   }
 };
 

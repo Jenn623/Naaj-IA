@@ -30,6 +30,10 @@ const ReviewModal = ({ place, onClose }) => {
       await submitReview(reviewPayload);
       setSuccess(true);
       setTimeout(() => {
+        setSuccess(false); // Reiniciamos estado interno
+        setIsSubmitting(false);
+        setRating(0);
+        setComment("");
         onClose(); // Cierra el modal automáticamente después de 1.5 seg
       }, 1500);
     } catch (error) {

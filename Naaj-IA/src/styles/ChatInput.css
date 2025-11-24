@@ -1,42 +1,110 @@
 /*estilos generales para el input del mensaje*/
 
+/* Contenedor de la barra inferior */
 .input-container {
+  width: 100%;
+  padding: 10px 15px;
+  
+  /* 1. Fondo del contenedor: Oscuro muy sutil y transparente */
+  background-color: rgba(0, 0, 0, 0.05); 
+  
+  /* 2. Desenfoque del fondo detrás de la barra */
+  backdrop-filter: blur(4px);
+  
+  /* Borde superior sutil para separar */
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  
+  flex-shrink: 0;
+  z-index: 20;
+  position: relative;
+  
+  /* Ajuste para iPhone X/11/12/etc */
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+}
+
+/* La píldora donde escribes */
+.chat-input-form {
+  display: flex;
+  align-items: flex-end;
+  
+  /* 3. Efecto Vidrio (Glassmorphism) */
+  background-color: rgba(255, 255, 255, 0.062); /* Blanco al 20% de opacidad */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Borde semitransparente */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  backdrop-filter: blur(10px); /* Blur interno para que el texto sea legible */
+  
+  padding: 8px 15px;
+  border-radius: 24px;
+  transition: all 0.2s ease;
+}
+
+/* Al hacer foco, se vuelve un poco más sólido */
+.chat-input-form:focus-within {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.chat-input-form textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 1rem;
+  
+  /* 4. Color del texto: Blanco para que contraste con el fondo colorido */
+  color: #000000; 
+  
+  resize: none;
+  padding: 4px 0;
+  line-height: 1.4;
+  min-height: 24px;
+  max-height: 80px;
+  overflow-y: auto;
+}
+
+/* Color del Placeholder (El texto de "Pregúntale algo...") */
+.chat-input-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Scrollbar del textarea (oculto o estilizado) */
+.chat-input-form textarea::-webkit-scrollbar {
+  width: 4px;
+}
+.chat-input-form textarea::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+}
+
+/* Botón de enviar */
+.chat-input-form button {
+  background: transparent;
+  border: none;
+  
+  /* 5. Icono blanco brillante o Cian para resaltar */
+  color: #646cff; 
+  
+  cursor: pointer;
+  padding: 0 0 4px 10px;
   display: flex;
   align-items: center;
-  padding: 10px 15px;
-  background-color: #fff;
-  border-top: 1px solid #eaeaea;
-  position: relative; /* Fijo en la parte inferior (arriba del navbar) */
-  /*bottom: 60px; /* Ajustar según la altura del NavBar */
-  left: 0;
-  width: 100%;
-  box-sizing: border-box;
+  justify-content: center;
+  transition: transform 0.2s, opacity 0.2s;
 }
 
-.input-container input {
-  flex: 1;
-  padding: 12px;
-  border-radius: 24px;
-  border: 1px solid #ddd;
-  outline: none;
-  font-size: 1rem;
-  background-color: #f9f9f9;
-  color: #000000;
+.chat-input-form button svg {
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); /* Sombrita al icono */
 }
 
-.input-container input:focus {
-  border-color: #6C63FF;
+.chat-input-form button:hover {
+  transform: scale(1.1);
 }
 
-.input-container button {
-  background: none;
-  border: none;
-  margin-left: 10px;
-  color: #6C63FF;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.input-container button:disabled {
-  color: #ccc;
+.chat-input-form button:disabled {
+  color: rgba(255, 255, 255, 0.4);
+  transform: none;
+  cursor: default;
 }

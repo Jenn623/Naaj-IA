@@ -10,7 +10,10 @@
         "nombre": "La Pigua",
         "categoria": "Mariscos",
         "direccion": "C. 59, Centro Histórico, Campeche (Malecón area)",
-        "coordenadas": {"lat": 19.8350, "lng": -90.5290},
+        "coordenadas": {
+          "lat": 19.835,
+          "lng": -90.529
+        },
         "fuente": "TripAdvisor | https://www.tripadvisor.com/Restaurant_Review-g1632078-d1050987-Reviews-La_Pigua-Campeche_Yucatan_Peninsula.html",
         "rating": 4.8,
         "reviews": [],
@@ -21,7 +24,10 @@
         "nombre": "La Palapa del Tío Fito",
         "categoria": "Mariscos",
         "direccion": "Av. Resurgimiento s/n, Col. Lazareto, San Francisco de Campeche, Camp.",
-        "coordenadas": {"lat": 19.8360, "lng": -90.5295},
+        "coordenadas": {
+          "lat": 19.836,
+          "lng": -90.5295
+        },
         "fuente": "Sitio oficial | https://lapalapadeltiofito.com/en/ | TripAdvisor https://www.tripadvisor.com/Restaurant_Review-g1632078-d2620495-Reviews-La_Palapa_del_Tio_Fito-Campeche_Yucatan_Peninsula.html",
         "rating": 4.6,
         "reviews": [],
@@ -32,7 +38,10 @@
         "nombre": "Marganzo",
         "categoria": "Mariscos / Cocina local",
         "direccion": "Centro Histórico, Campeche",
-        "coordenadas": {"lat": 19.8465, "lng": -90.5325},
+        "coordenadas": {
+          "lat": 19.8465,
+          "lng": -90.5325
+        },
         "fuente": "Listados locales / Wanderlog / TripAdvisor",
         "rating": 4.5,
         "reviews": [],
@@ -43,7 +52,10 @@
         "nombre": "Aduana 59",
         "categoria": "Alta cocina / Mexicana contemporánea",
         "direccion": "Calle 59, Centro Histórico, Campeche",
-        "coordenadas": {"lat": 19.8450, "lng": -90.5340},
+        "coordenadas": {
+          "lat": 19.845,
+          "lng": -90.534
+        },
         "fuente": "TripAdvisor | https://www.tripadvisor.com/Restaurant_Review-g1632078-d18855041-Reviews-Aduana_59-Campeche_Yucatan_Peninsula.html",
         "rating": 4.7,
         "reviews": [],
@@ -53,14 +65,20 @@
         "nombre": "Bartola (Cafetería)",
         "categoria": "Cafetería / Desayuno",
         "direccion": "Centro Histórico, Campeche",
-        "coordenadas": {"lat": 19.8460, "lng": -90.5330},
+        "coordenadas": {
+          "lat": 19.846,
+          "lng": -90.533
+        },
         "fuente": "Reseñas locales / TripAdvisor references"
       },
       {
         "nombre": "El Bastión",
         "categoria": "Comida campechana",
         "direccion": "Calle 57 #2A entre 8 y 10, Campeche",
-        "coordenadas": {"lat": 19.8452, "lng": -90.5341},
+        "coordenadas": {
+          "lat": 19.8452,
+          "lng": -90.5341
+        },
         "fuente": "Facebook / listados locales"
       }
     ],
@@ -124,7 +142,10 @@
         "nombre": "Vicanto Restaurante & Muelle",
         "categoria": "Cocina regional / Muelle",
         "direccion": "Palizada, Campeche (Centro)",
-        "coordenadas": {"lat": 18.2546, "lng": -92.09148},
+        "coordenadas": {
+          "lat": 18.2546,
+          "lng": -92.09148
+        },
         "fuente": "Facebook page | https://www.facebook.com/vicantomuelle/"
       }
     ],
@@ -139,5 +160,40 @@
       }
     ]
   },
-  "lugares_comunidad": []
+  "lugares_comunidad": [
+    {
+      "nombre": "Edzná",
+      "categoria": "Lugar Turístico",
+      "direccion": "Valle de Edzná",
+      "coordenadas": null,
+      "rating": 4.0,
+      "reviews": [
+        {
+          "user": "Viajero",
+          "rating": 4.0,
+          "comment": "lugar hermoso, lo visitaria de nuevo",
+          "date": "2025-11-23"
+        }
+      ],
+      "origen": "Agregado por Comunidad 👥",
+      "imagen": "NO_IMAGE"
+    },
+    {
+      "nombre": "Edzná",
+      "categoria": "Lugar Turístico",
+      "direccion": "Valle de Edzná",
+      "coordenadas": null,
+      "rating": 5.0,
+      "reviews": [
+        {
+          "user": "Viajero",
+          "rating": 5.0,
+          "comment": "",
+          "date": "2025-11-23"
+        }
+      ],
+      "origen": "Agregado por Comunidad 👥",
+      "imagen": "NO_IMAGE"
+    }
+  ]
 }

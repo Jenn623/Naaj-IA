@@ -10,19 +10,37 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   width: 100vw;
   overflow: hidden;
+  position: relative;
 }
 
 .messages-container {
   flex: 1;
   overflow-y: auto; /* Scroll vertical */
   padding-bottom: 130px; /* Espacio para Input + NavBar */
-  padding-top: 50px;
+  padding: 15px;
   display: flex;
   flex-direction: column;   /* Para que los mensajes se apilen */
-  overflow-y: auto; /* El scroll SOLO ocurre aquí adentro */
   overflow-x: hidden;
+  gap: 15px;
 
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.messages-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* INPUT AREA (Fijo abajo, encima del NavBar) */
+.input-container {
+  width: 100%;
+  padding: 10px 15px;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(5px);
+  border-top: 1px solid rgba(0,0,0,0.1);
+  flex-shrink: 0; /* No permitas que se aplaste */
+  position: relative; /* Ya no fixed */
+  z-index: 10;
 }
 
 .typing-indicator {

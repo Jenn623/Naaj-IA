@@ -41,20 +41,19 @@ const ChatScreen = () => {
     }
 
     // B. RECUPERAR CHAT GUARDADO
-    const savedChat = localStorage.getItem('naaj_chat_history');
+    //const savedChat = localStorage.getItem('naaj_chat_session');
     const savedDate = localStorage.getItem('naaj_chat_date');
     const today = getMexicoDate();
 
-    if (savedChat && savedDate === today) {
-      // Si hay chat y es del día de HOY, lo cargamos
+    // Recuperar chat de la sesión actual
+    const savedChat = sessionStorage.getItem('naaj_chat_session');
+    
+    if (savedChat) {
       setMessages(JSON.parse(savedChat));
     } else {
-      // Si es de ayer, o no existe, iniciamos limpio
-      localStorage.removeItem('naaj_chat_history');
-      localStorage.setItem('naaj_chat_date', today); // Guardamos la fecha de hoy
-      
+      // Si no hay sesión activa, iniciamos limpio
       setMessages([
-        { id: 1, text: "¡Hola! Soy Naaj-IA. ¿En qué puedo ayudarte hoy sobre Campeche?", isUser: false }
+        { id: 1, text: "¡Hola! Soy Naaj-IA. ¿En qué puedo ayudarte hoy?", isUser: false }
       ]);
     }
   }, []);
@@ -65,7 +64,7 @@ const ChatScreen = () => {
   useEffect(() => {
     // Cada vez que 'messages' cambie, lo guardamos en el celular
     if (messages.length > 0) {
-      localStorage.setItem('naaj_chat_history', JSON.stringify(messages));
+      sessionStorage.setItem('naaj_chat_session', JSON.stringify(messages));
     }
   }, [messages]);
 

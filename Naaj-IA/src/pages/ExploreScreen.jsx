@@ -5,26 +5,25 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import DestinationCard from '../components/DestinationCard';
 import ReviewModal from '../components/ReviewModal';
-import { getDestinations } from '../services/api';
+import PlaceDetailsModal from '../components/PlacesDetailsModal'; // 🆕 Importamos el modal de detalles
+import { getDestinations, searchPlaces, getPlaceDetails } from '../services/api';
 import '../styles/ExploreScreen.css';
 
-const LOGO_URL = "/logo.svg"; 
+const LOGO_URL = "/naaj-IA-icon.svg"; 
 
-// --- 1. DATOS DE RESPALDO (MOCK DATA) ---
-// Estos se mostrarán si la API falla o los links no cargan.
-// Usamos 'placehold.co' que genera imágenes al vuelo (nunca fallan).
+// --- DATOS DE RESPALDO (Por si falla la API) ---
 const MOCK_DATA = [
   {
     nombre: "Fuerte de San Miguel",
     rating: 4.8,
     direccion: "Av. Escénica, Campeche",
-    imagen: "https://images.unsplash.com/photo-1585155967849-91c736533c65?w=500&q=80"
+    imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Fuerte_de_San_Miguel%2C_Campeche.jpg/640px-Fuerte_de_San_Miguel%2C_Campeche.jpg"
   },
   {
     nombre: "Calle 59",
     rating: 4.9,
     direccion: "Centro Histórico",
-    imagen: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=500&q=80"
+    imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Calle_59_Campeche.jpg/640px-Calle_59_Campeche.jpg"
   },
   {
     nombre: "Malecón de Campeche",
@@ -36,7 +35,7 @@ const MOCK_DATA = [
     nombre: "Edzná",
     rating: 5.0,
     direccion: "Valle de Edzná",
-    imagen: "https://images.unsplash.com/photo-1590079081922-54216b429062?w=500&q=80"
+    imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Edzna_Five_Floors_Pyramid.jpg/640px-Edzna_Five_Floors_Pyramid.jpg"
   },
   {
     nombre: "La Pigua",
@@ -48,59 +47,128 @@ const MOCK_DATA = [
 
 const ExploreScreen = () => {
   const navigate = useNavigate();
+  
+  // --- ESTADOS DE INTERFAZ ---
   const [scrolled, setScrolled] = useState(false);
-  const [popularPlaces, setPopularPlaces] = useState([]);
-  const [suggestedPlaces, setSuggestedPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  const [selectedPlace, setSelectedPlace] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  // --- ESTADOS DE DATOS ---
+  const [popularPlaces, setPopularPlaces] = useState([]);
+  const [suggestedPlaces, setSuggestedPlaces] = useState([]);
+  
+  // --- ESTADOS DEL BUSCADOR ---
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  
+  // --- ESTADOS DE LOS MODALES ---
+  const [selectedPlace, setSelectedPlace] = useState(null); // Lugar activo
+  const [showDetails, setShowDetails] = useState(false);    // Modal Ficha
+  const [showReview, setShowReview] = useState(false);      // Modal Reseña
 
+  // 1. CARGA INICIAL (GPS + API)
   useEffect(() => {
     const loadData = async () => {
       try {
-        // Intentamos llamar a la API
-        // NOTA: Si estás en local, asegúrate que api.js apunte a localhost:5000
-        const data = await getDestinations(); 
+        let data = { popular: [], suggested: [] };
         
-        // VERIFICACIÓN DE SEGURIDAD:
-        // Si la API devolvió listas vacías (o falló), usamos MOCK_DATA
-        if (data.popular && data.popular.length > 0) {
-            setPopularPlaces(data.popular);
-            setSuggestedPlaces(data.suggested);
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            async (pos) => {
+              data = await getDestinations(pos.coords.latitude, pos.coords.longitude);
+              processData(data);
+            },
+            async () => {
+              data = await getDestinations(); // Fallback sin GPS
+              processData(data);
+            }
+          );
         } else {
-            // FALLBACK: Usamos los datos falsos para que NO se vea vacío
-            console.log("API vacía o fallida, usando datos de respaldo.");
-            setPopularPlaces(MOCK_DATA);
-            setSuggestedPlaces(MOCK_DATA.slice().reverse()); // Invertimos para variar
+          data = await getDestinations();
+          processData(data);
         }
       } catch (error) {
-        console.error("Error de conexión, usando respaldo", error);
-        setPopularPlaces(MOCK_DATA);
-        setSuggestedPlaces(MOCK_DATA);
-      } finally {
+        console.error("Error de conexión", error);
+        useMockData();
         setLoading(false);
       }
     };
+
+    const processData = (data) => {
+      if (data && (data.popular.length > 0 || data.suggested.length > 0)) {
+        setPopularPlaces(data.popular);
+        setSuggestedPlaces(data.suggested);
+      } else {
+        useMockData();
+      }
+      setLoading(false);
+    };
+
+    const useMockData = () => {
+      setPopularPlaces(MOCK_DATA);
+      setSuggestedPlaces(MOCK_DATA.slice().reverse());
+    };
+
     loadData();
   }, []);
 
+  // 2. BUSCADOR (Debounce)
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(async () => {
+      if (searchTerm.length > 2) {
+        const results = await searchPlaces(searchTerm); 
+        setSearchResults(results);
+      } else {
+        setSearchResults([]);
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm]);
+
+  // 3. SCROLL HANDLER
   const handleScroll = (e) => {
     const scrollTop = e.target.scrollTop;
     setScrolled(scrollTop > 100);
   };
 
-  const handleCardClick = (place) => {
-    setSelectedPlace(place);
-    setShowModal(true);
+  // 4. ABRIR DETALLES DEL LUGAR (Lógica Unificada)
+  const handleOpenPlace = async (placeName) => {
+    // Limpiar buscador si estaba abierto
+    setSearchTerm('');
+    setSearchResults([]);
+
+    // Obtener detalles completos del backend
+    const fullDetails = await getPlaceDetails(placeName);
+    
+    if (fullDetails) {
+      setSelectedPlace(fullDetails);
+      setShowDetails(true); // Abre la ficha
+    } else {
+      // Fallback si la API falla en el detalle
+      alert("Cargando información básica...");
+      // Podrías pasar el objeto básico aquí si quisieras
+    }
+  };
+
+  // 5. MANEJO DE RESEÑAS (Dentro de Detalles)
+  const handleOpenReview = () => {
+    setShowReview(true);
+    // No cerramos Details, solo abrimos Review encima
+  };
+
+  const handleCloseReview = () => {
+    setShowReview(false);
+    // Opcional: Recargar detalles para ver la nueva reseña
+    if (selectedPlace) handleOpenPlace(selectedPlace.nombre);
   };
 
   return (
     <div className="explore-screen">
       
-      {/* 1. HEADER (Ahora vive AFUERA del scroll, flotando arriba) */}
+      {/* HEADER FLOTANTE */}
       <div className={`explore-header ${scrolled ? 'minimized' : ''}`}>
         <div className="header-content">
+          
           <div className="header-branding">
             <div className="logo-container">
               <img 
@@ -110,30 +178,50 @@ const ExploreScreen = () => {
               />
             </div>
             
-            {/* Ocultamos esto con CSS cuando esté minimizado, no con JS, para que sea más suave */}
             <div className={`greeting-container ${scrolled ? 'hidden' : ''}`}>
               <h1 className="title-naaj">¡Hola Explorador!</h1>
             </div>
           </div>
 
-          <div className="search-pill" onClick={() => navigate('/naaj')}>
-            <span className="search-placeholder">
-              {scrolled ? '🔍 Buscar...' : '¿Dónde te gustaría ir hoy?'}
-            </span>
-            <div className="search-icon-circle">
-               <span style={{fontSize: '1.2rem'}}>🔍</span>
+          {/* BUSCADOR */}
+          <div className="search-wrapper">
+            <div className="search-pill">
+              <input 
+                type="text"
+                className="real-search-input"
+                placeholder={scrolled ? 'Buscar...' : '¿Dónde te gustaría ir hoy?'}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <div className="search-icon-circle">🔍</div>
             </div>
+
+            {/* RESULTADOS DE BÚSQUEDA */}
+            {searchResults.length > 0 && (
+              <div className="search-results-dropdown">
+                {searchResults.map((item, idx) => (
+                  <div 
+                    key={idx} 
+                    className="search-result-item" 
+                    onClick={() => handleOpenPlace(item.nombre)}
+                  >
+                    <div className="result-info">
+                      <span className="result-name">{item.nombre}</span>
+                      <span className="result-address">{item.direccion}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
+
         </div>
       </div>
 
-      {/* 2. ZONA DE SCROLL (Pasa por DEBAJO del header) */}
+      {/* ZONA DE SCROLL (CUERPO) */}
       <div className="scroll-container" onScroll={handleScroll}>
-        
-        {/* CUERPO */}
         <div className="explore-body">
           
-          {/* ... (El contenido de loading y carruseles sigue IGUAL) ... */}
           {loading ? (
             <div className="loading-state">
               <div className="spinner"></div>
@@ -141,6 +229,7 @@ const ExploreScreen = () => {
             </div>
           ) : (
             <>
+              {/* CARRUSEL 1: SUGERIDOS */}
               <div className="section-block">
                 <div className="section-header">
                   <h3>Destinos Sugeridos</h3>
@@ -148,11 +237,16 @@ const ExploreScreen = () => {
                 </div>
                 <div className="horizontal-scroll">
                   {suggestedPlaces.map((place, idx) => (
-                    <DestinationCard key={idx} place={place} onClick={handleCardClick} />
+                    <DestinationCard 
+                      key={idx} 
+                      place={place} 
+                      onClick={() => handleOpenPlace(place.nombre)} 
+                    />
                   ))}
                 </div>
               </div>
 
+              {/* CARRUSEL 2: POPULARES */}
               <div className="section-block popular-section">
                 <div className="section-header">
                   <h3>Destinos Populares</h3>
@@ -160,7 +254,11 @@ const ExploreScreen = () => {
                 </div>
                 <div className="horizontal-scroll">
                   {popularPlaces.map((place, idx) => (
-                    <DestinationCard key={idx} place={place} onClick={handleCardClick} />
+                    <DestinationCard 
+                      key={idx} 
+                      place={place} 
+                      onClick={() => handleOpenPlace(place.nombre)} 
+                    />
                   ))}
                 </div>
               </div>
@@ -172,8 +270,29 @@ const ExploreScreen = () => {
       </div> 
 
       <NavBar />
-      {showModal && <ReviewModal place={selectedPlace} onClose={() => setShowModal(false)} />}
+      
+      {/* MODALES APILADOS */}
+      
+      {/* 1. Ficha Técnica (Fondo) */}
+      {showDetails && (
+        <PlaceDetailsModal 
+          place={selectedPlace} 
+          onClose={() => setShowDetails(false)} 
+          onAddReview={handleOpenReview} // Conecta con el siguiente modal
+          isBlurred={showReview}         // Se desenfoca si el de reseña está abierto
+        />
+      )}
+
+      {/* 2. Escribir Reseña (Frente) */}
+      {showReview && (
+        <ReviewModal 
+          place={selectedPlace} 
+          onClose={handleCloseReview} 
+        />
+      )}
+
     </div>
   );
-}
-  export default ExploreScreen;
+};
+
+export default ExploreScreen;
