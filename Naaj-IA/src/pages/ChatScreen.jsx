@@ -140,8 +140,11 @@ const ChatScreen = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      <ChatInput onSendMessage={handleSendMessage} isLoading={loading} />
-      <NavBar />
+      {/* 🆕 AQUÍ ESTÁ LA CLAVE: Envolvemos ambos en chat-footer */}
+    <div className="chat-footer">
+       <ChatInput onSendMessage={handleSendMessage} isLoading={loading} />
+       <NavBar />
+    </div>
     </div>
   );
 };
