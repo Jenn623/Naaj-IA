@@ -17,7 +17,7 @@
         "fuente": "TripAdvisor | https://www.tripadvisor.com/Restaurant_Review-g1632078-d1050987-Reviews-La_Pigua-Campeche_Yucatan_Peninsula.html",
         "rating": 4.8,
         "reviews": [],
-        "imagen": "https://media-cdn.tripadvisor.com/media/photo-s/1a/07/93/28/la-pigua.jpg"
+        "imagen": "https://images.unsplash.com/photo-1565608087341-345c6f15793b?w=600&q=80"
       },
       {
         "id": 2,
@@ -32,6 +32,14 @@
         "rating": 4.6,
         "reviews": [],
         "imagen": "https://media-cdn.tripadvisor.com/media/photo-s/1b/4f/95/6a/vista-desde-nuestra-terraza.jpg"
+      },
+      {
+        "nombre": "Calle 59",
+          "categoria": "Centro Histórico",
+          "direccion": "Calle 59, Centro, Campeche",
+          "coordenadas": { "lat": 19.845, "lng": -90.534 },
+          "rating": 4.9,
+          "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Calle_59_Campeche.jpg/800px-Calle_59_Campeche.jpg"
       },
       {
         "id": 3,
@@ -80,7 +88,37 @@
           "lng": -90.5341
         },
         "fuente": "Facebook / listados locales"
-      }
+      },
+      {
+          "nombre": "Fuerte de San Miguel",
+          "categoria": "Museo / Historia",
+          "direccion": "Av. Escénica s/n, Campeche",
+          "coordenadas": { "lat": 19.823, "lng": -90.559 },
+          "rating": 4.8,
+          "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Fuerte_de_San_Miguel%2C_Campeche.jpg/800px-Fuerte_de_San_Miguel%2C_Campeche.jpg",
+          "reviews": []
+        },
+        {
+          "nombre": "Malecón de Campeche",
+          "categoria": "Paseo / Naturaleza",
+          "direccion": "Av. Pedro Sainz de Baranda",
+          "coordenadas": { "lat": 19.848, "lng": -90.540 },
+          "rating": 4.7,
+          "imagen": "https://images.unsplash.com/photo-1612633826752-7a356f22eb40?w=600&q=80",
+          "reviews": []
+        }
+    ],
+    "calakmul": [
+        {
+          "nombre": "Zona Arqueológica de Calakmul",
+          "categoria": "Arqueología",
+          "direccion": "Reserva de la Biosfera Calakmul",
+          "coordenadas": { "lat": 18.105, "lng": -89.810 },
+          "rating": 5.0,
+          "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Calakmul_Structure_II.jpg/800px-Calakmul_Structure_II.jpg",
+          "reviews": []
+        }
+      
     ],
     "Ciudad del Carmen": [
       {

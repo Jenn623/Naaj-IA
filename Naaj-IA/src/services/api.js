@@ -39,7 +39,8 @@ export const getDestinations = async (lat = null, lng = null) => {
   try {
     // Si hay GPS, lo enviamos en la URL
     const query = lat && lng ? `?lat=${lat}&lng=${lng}` : '';
-    const response = await api.get(`/explore/destinations${query}`);
+    const response = await api.get(`/destinations${query}`);
+    //const response = await api.get(`/destinations${query}`);
     return response.data;
   } catch (error) {
     console.error("Error obteniendo destinos:", error);

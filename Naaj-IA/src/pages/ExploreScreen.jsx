@@ -5,123 +5,76 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import DestinationCard from '../components/DestinationCard';
 import ReviewModal from '../components/ReviewModal';
-import PlaceDetailsModal from '../components/PlacesDetailsModal'; // 🆕 Importamos el modal de detalles
+import PlaceDetailsModal from '../components/PlacesDetailsModal';
 import { getDestinations, searchPlaces, getPlaceDetails } from '../services/api';
 import '../styles/ExploreScreen.css';
 
 const LOGO_URL = "/naaj-IA-icon.svg"; 
 
-// --- DATOS DE RESPALDO (Por si falla la API) ---
+// DATOS DE RESPALDO (Solo se usan si tu Python está apagado o falla)
 const MOCK_DATA = [
-  {
-    nombre: "Fuerte de San Miguel",
-    rating: 4.8,
-    direccion: "Av. Escénica, Campeche",
-    imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Fuerte_de_San_Miguel%2C_Campeche.jpg/640px-Fuerte_de_San_Miguel%2C_Campeche.jpg"
-  },
-  {
-    nombre: "Calle 59",
-    rating: 4.9,
-    direccion: "Centro Histórico",
-    imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Calle_59_Campeche.jpg/640px-Calle_59_Campeche.jpg"
-  },
-  {
-    nombre: "Malecón de Campeche",
-    rating: 4.7,
-    direccion: "Av. Pedro Sainz",
-    imagen: "https://images.unsplash.com/photo-1612633826752-7a356f22eb40?w=500&q=80"
-  },
-  {
-    nombre: "Edzná",
-    rating: 5.0,
-    direccion: "Valle de Edzná",
-    imagen: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Edzna_Five_Floors_Pyramid.jpg/640px-Edzna_Five_Floors_Pyramid.jpg"
-  },
-  {
-    nombre: "La Pigua",
-    rating: 4.6,
-    direccion: "Av. Miguel Alemán",
-    imagen: "https://images.unsplash.com/photo-1565608087341-345c6f15793b?w=500&q=80"
-  }
+  { nombre: "Fuerte de San Miguel (Demo)", rating: 4.8, direccion: "Av. Escénica", imagen: "https://images.unsplash.com/photo-1585155967849-91c736533c65?w=600&q=80" },
+  { nombre: "Calle 59 (Demo)", rating: 4.9, direccion: "Centro", imagen: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=600&q=80" },
+  { nombre: "Edzná (Demo)", rating: 5.0, direccion: "Valle de Edzná", imagen: "https://images.unsplash.com/photo-1590079081922-54216b429062?w=600&q=80" }
 ];
 
 const ExploreScreen = () => {
   const navigate = useNavigate();
-  
-  // --- ESTADOS DE INTERFAZ ---
   const [scrolled, setScrolled] = useState(false);
   const [loading, setLoading] = useState(true);
   
-  // --- ESTADOS DE DATOS ---
+  // Estados de datos
   const [popularPlaces, setPopularPlaces] = useState([]);
   const [suggestedPlaces, setSuggestedPlaces] = useState([]);
   
-  // --- ESTADOS DEL BUSCADOR ---
+  // Estados de interacción
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  
-  // --- ESTADOS DE LOS MODALES ---
-  const [selectedPlace, setSelectedPlace] = useState(null); // Lugar activo
-  const [showDetails, setShowDetails] = useState(false);    // Modal Ficha
-  const [showReview, setShowReview] = useState(false);      // Modal Reseña
+  const [selectedPlace, setSelectedPlace] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
+  const [showReview, setShowReview] = useState(false);
 
-  // 1. CARGA INICIAL (GPS + API)
+  // 1. CARGA DE DATOS (INTENTO REAL + FALLBACK)
   useEffect(() => {
     const loadData = async () => {
+      setLoading(true);
       try {
-        let data = { popular: [], suggested: [] };
+        // Intentamos conectar con tu Backend (app.py)
+        // Esto leerá tu archivo campeche.json real
+        const data = await getDestinations();
         
-        if ("geolocation" in navigator) {
-          navigator.geolocation.getCurrentPosition(
-            async (pos) => {
-              data = await getDestinations(pos.coords.latitude, pos.coords.longitude);
-              processData(data);
-            },
-            async () => {
-              data = await getDestinations(); // Fallback sin GPS
-              processData(data);
-            }
-          );
+        if (data && (data.popular.length > 0 || data.suggested.length > 0)) {
+          console.log("✅ Datos cargados del JSON/Backend");
+          setPopularPlaces(data.popular);
+          setSuggestedPlaces(data.suggested);
         } else {
-          data = await getDestinations();
-          processData(data);
+          throw new Error("Lista vacía del backend");
         }
       } catch (error) {
-        console.error("Error de conexión", error);
-        useMockData();
+        console.warn("⚠️ Backend no disponible, usando modo Demo:", error.message);
+        // Si falla, usamos los datos falsos para que no se vea feo
+        setPopularPlaces(MOCK_DATA);
+        setSuggestedPlaces([...MOCK_DATA].reverse());
+      } finally {
         setLoading(false);
       }
-    };
-
-    const processData = (data) => {
-      if (data && (data.popular.length > 0 || data.suggested.length > 0)) {
-        setPopularPlaces(data.popular);
-        setSuggestedPlaces(data.suggested);
-      } else {
-        useMockData();
-      }
-      setLoading(false);
-    };
-
-    const useMockData = () => {
-      setPopularPlaces(MOCK_DATA);
-      setSuggestedPlaces(MOCK_DATA.slice().reverse());
     };
 
     loadData();
   }, []);
 
-  // 2. BUSCADOR (Debounce)
+  // 2. BUSCADOR
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
       if (searchTerm.length > 2) {
-        const results = await searchPlaces(searchTerm); 
-        setSearchResults(results);
+        try {
+            const results = await searchPlaces(searchTerm); 
+            setSearchResults(results);
+        } catch (e) { setSearchResults([]); }
       } else {
         setSearchResults([]);
       }
     }, 500);
-
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm]);
 
@@ -131,59 +84,45 @@ const ExploreScreen = () => {
     setScrolled(scrollTop > 100);
   };
 
-  // 4. ABRIR DETALLES DEL LUGAR (Lógica Unificada)
+  // 4. ABRIR DETALLES (Unificado)
   const handleOpenPlace = async (placeName) => {
-    // Limpiar buscador si estaba abierto
     setSearchTerm('');
     setSearchResults([]);
 
-    // Obtener detalles completos del backend
-    const fullDetails = await getPlaceDetails(placeName);
+    // Primero buscamos en los datos que ya tenemos cargados (para que sea instantáneo)
+    const preloadedPlace = [...popularPlaces, ...suggestedPlaces].find(p => p.nombre === placeName);
     
-    if (fullDetails) {
-      setSelectedPlace(fullDetails);
-      setShowDetails(true); // Abre la ficha
+    if (preloadedPlace) {
+        setSelectedPlace(preloadedPlace);
+        setShowDetails(true);
+        // Opcional: Pedir datos extra frescos al backend en segundo plano
     } else {
-      // Fallback si la API falla en el detalle
-      alert("Cargando información básica...");
-      // Podrías pasar el objeto básico aquí si quisieras
+        // Si vino del buscador y no lo tenemos en pantalla, pedimos detalles
+        const fullDetails = await getPlaceDetails(placeName);
+        if (fullDetails) {
+            setSelectedPlace(fullDetails);
+            setShowDetails(true);
+        }
     }
   };
 
-  // 5. MANEJO DE RESEÑAS (Dentro de Detalles)
-  const handleOpenReview = () => {
-    setShowReview(true);
-    // No cerramos Details, solo abrimos Review encima
-  };
-
-  const handleCloseReview = () => {
-    setShowReview(false);
-    // Opcional: Recargar detalles para ver la nueva reseña
-    if (selectedPlace) handleOpenPlace(selectedPlace.nombre);
-  };
+  const handleOpenReview = () => setShowReview(true);
+  const handleCloseReview = () => setShowReview(false);
 
   return (
     <div className="explore-screen">
       
-      {/* HEADER FLOTANTE */}
       <div className={`explore-header ${scrolled ? 'minimized' : ''}`}>
         <div className="header-content">
-          
           <div className="header-branding">
             <div className="logo-container">
-              <img 
-                src={LOGO_URL} 
-                alt="Naaj Logo" 
-                onError={(e) => e.target.src = "https://placehold.co/100x100/white/e91e63?text=N"} 
-              />
+              <img src={LOGO_URL} alt="Naaj" onError={(e) => e.target.src = "https://placehold.co/100x100/white/e91e63?text=N"} />
             </div>
-            
             <div className={`greeting-container ${scrolled ? 'hidden' : ''}`}>
               <h1 className="title-naaj">¡Hola Explorador!</h1>
             </div>
           </div>
 
-          {/* BUSCADOR */}
           <div className="search-wrapper">
             <div className="search-pill">
               <input 
@@ -195,16 +134,10 @@ const ExploreScreen = () => {
               />
               <div className="search-icon-circle">🔍</div>
             </div>
-
-            {/* RESULTADOS DE BÚSQUEDA */}
             {searchResults.length > 0 && (
               <div className="search-results-dropdown">
                 {searchResults.map((item, idx) => (
-                  <div 
-                    key={idx} 
-                    className="search-result-item" 
-                    onClick={() => handleOpenPlace(item.nombre)}
-                  >
+                  <div key={idx} className="search-result-item" onClick={() => handleOpenPlace(item.nombre)}>
                     <div className="result-info">
                       <span className="result-name">{item.nombre}</span>
                       <span className="result-address">{item.direccion}</span>
@@ -214,22 +147,18 @@ const ExploreScreen = () => {
               </div>
             )}
           </div>
-
         </div>
       </div>
 
-      {/* ZONA DE SCROLL (CUERPO) */}
       <div className="scroll-container" onScroll={handleScroll}>
         <div className="explore-body">
-          
           {loading ? (
             <div className="loading-state">
               <div className="spinner"></div>
-              <p>Cargando maravillas...</p>
+              <p>Cargando destinos...</p>
             </div>
           ) : (
             <>
-              {/* CARRUSEL 1: SUGERIDOS */}
               <div className="section-block">
                 <div className="section-header">
                   <h3>Destinos Sugeridos</h3>
@@ -237,16 +166,11 @@ const ExploreScreen = () => {
                 </div>
                 <div className="horizontal-scroll">
                   {suggestedPlaces.map((place, idx) => (
-                    <DestinationCard 
-                      key={idx} 
-                      place={place} 
-                      onClick={() => handleOpenPlace(place.nombre)} 
-                    />
+                    <DestinationCard key={idx} place={place} onClick={() => handleOpenPlace(place.nombre)} />
                   ))}
                 </div>
               </div>
 
-              {/* CARRUSEL 2: POPULARES */}
               <div className="section-block popular-section">
                 <div className="section-header">
                   <h3>Destinos Populares</h3>
@@ -254,43 +178,33 @@ const ExploreScreen = () => {
                 </div>
                 <div className="horizontal-scroll">
                   {popularPlaces.map((place, idx) => (
-                    <DestinationCard 
-                      key={idx} 
-                      place={place} 
-                      onClick={() => handleOpenPlace(place.nombre)} 
-                    />
+                    <DestinationCard key={idx} place={place} onClick={() => handleOpenPlace(place.nombre)} />
                   ))}
                 </div>
               </div>
             </>
           )}
-          
           <div style={{ height: '100px' }}></div>
         </div>
       </div> 
 
       <NavBar />
       
-      {/* MODALES APILADOS */}
-      
-      {/* 1. Ficha Técnica (Fondo) */}
       {showDetails && (
         <PlaceDetailsModal 
           place={selectedPlace} 
           onClose={() => setShowDetails(false)} 
-          onAddReview={handleOpenReview} // Conecta con el siguiente modal
-          isBlurred={showReview}         // Se desenfoca si el de reseña está abierto
+          onAddReview={handleOpenReview} 
+          isBlurred={showReview}         
         />
       )}
 
-      {/* 2. Escribir Reseña (Frente) */}
       {showReview && (
         <ReviewModal 
           place={selectedPlace} 
           onClose={handleCloseReview} 
         />
       )}
-
     </div>
   );
 };
