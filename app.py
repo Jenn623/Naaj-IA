@@ -394,17 +394,12 @@ def get_place_details():
     # Reutilizamos search para detalle rápido
     results = search_google_places(place_name, lat, lng)
     if results: return jsonify(results[0])
-    return jsonify({})
+    return jsonify({}) 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
-    
-
-if __name__ == "__main__":
-    app.run(debug=True, port=5000) # en local: app.run(debug=True, port=5000)
+    port = int(os.environ.get("PORT", 5000)) # en local: app.run(debug=True, port=5000)
     # host='0.0.0.0' es obligatorio para que sea accesible desde fuera del contenedor
-    #app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port)
     
     #en produccion: # Render nos da un puerto en la variable de entorno PORT, si no existe usa 5000
     #port = int(os.environ.get("PORT", 5000))
