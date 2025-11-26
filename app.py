@@ -461,6 +461,125 @@ def retrieve_smart_data(query, history=[], lat=None, lng=None):
     
     return combined_results or google_hits
 
+# -----------------------------
+# RETRIEVER INTELIGENTE (Con Lógica de Transporte)
+# -----------------------------
+def retrieve_smart_data(query, history=[], lat=None, lng=None):
+    combined_results = []
+    
+    # A. CONTEXTO Y KEYWORDS
+    current_keywords = extract_keywords(query)
+    follow_up_words = ["eso", "ese", "cual", "como", "donde", "mas", "barato", "caro", "mejor", "opcion", "otro"]
+    is_follow_up = any(w in query.lower().split() for w in follow_up_words) or len(current_keywords) == 0
+    search_terms = list(current_keywords)
+    
+    if is_follow_up and history:
+        last_user_msg = next((m['text'] for m in reversed(history) if m.get('isUser')), "")
+        last_keywords = extract_keywords(last_user_msg)
+        search_terms = last_keywords + search_terms
+
+    final_query = " ".join(search_terms) if search_terms else query
+    
+    # B. DETECCIÓN DE MUNICIPIO
+    MUNICIPALITIES = ["calakmul", "calkini", "campeche", "candelaria", "carmen", "champoton", "dzitbalche", "escarcega", "hecelchakan", "hopelchen", "palizada", "seybaplaya", "tenabo"]
+    target_municipality = None
+    for mun in MUNICIPALITIES:
+        if mun in final_query.lower():
+            target_municipality = mun
+            lat = None; lng = None # Ignorar GPS si busca otro municipio
+            break
+    
+    # Si no detecta municipio explícito pero tenemos GPS, asumimos Campeche (capital) por defecto
+    # o dejamos que la búsqueda general funcione.
+    
+    # C. DETECCIÓN DE INTENCIÓN: ¿TRANSPORTE? 🚌
+    transport_triggers = ["transporte", "taxi", "camion", "bus", "autobus", "colectivo", "combi", "tren", "maya", "aeropuerto", "llegar", "costo", "tarifa", "precio", "movilidad", "tricitaxi", "mototaxi"]
+    is_transport_query = any(w in final_query.lower() for w in transport_triggers)
+
+    # --- ESTRATEGIA 1: TRANSPORTE (JSON PRIORITARIO) ---
+    if is_transport_query:
+        print("🚌 Modo Transporte Activado")
+        municipio_key = target_municipality if target_municipality else "campeche" # Default capital
+        
+        # Buscar en el JSON específico de transporte
+        if "municipios_data" in CAMPECHE_DATA and municipio_key in CAMPECHE_DATA["municipios_data"]:
+            data_mun = CAMPECHE_DATA["municipios_data"][municipio_key]
+            if "datos_transporte" in data_mun:
+                transport_info = data_mun["datos_transporte"]
+                # Le damos formato de "Lugar" para que Gemini lo lea fácil
+                transport_item = {
+                    "nombre": f"Transporte en {data_mun.get('nombre_oficial', municipio_key)}",
+                    "categoria": "Información de Movilidad",
+                    "direccion": "Varios puntos de la ciudad",
+                    "detalles_transporte": transport_info, # Gemini leerá esto
+                    "origen": "Guía de Transporte Naaj 🚌",
+                    "imagen": "NO_IMAGE"
+                }
+                combined_results.append(transport_item)
+        
+        # Si no encontramos data local, dejamos que Google ayude (Search abajo)
+
+    # --- ESTRATEGIA 2: UTILIDAD (OXXO, ATM) ---
+    utility_words = ["oxxo", "seven", "tienda", "cajero", "banco", "atm", "hospital", "clinica", "medico", "farmacia", "cruz roja", "policia", "seguridad", "gasolinera"]
+    is_utility = any(w in final_query.lower() for w in utility_words)
+
+    if is_utility and lat and lng and not is_transport_query:
+        return search_google_places(final_query, lat, lng, type_search="utility")
+
+    # --- ESTRATEGIA 3: BÚSQUEDA TURÍSTICA (JSON + GOOGLE) ---
+    # Solo buscamos lugares turísticos si NO es exclusivamente una pregunta de transporte
+    # o si queremos complementar.
+    
+    json_hits = []
+    seen_names = set()
+    
+    # Si ya tenemos info de transporte, no saturamos con restaurantes, a menos que sea mixto
+    if not is_transport_query or len(combined_results) == 0:
+        lists_to_search = []
+        if target_municipality and "municipios_data" in CAMPECHE_DATA:
+            lists_to_search.extend(CAMPECHE_DATA["municipios_data"].get(target_municipality, {}).get("lugares", []))
+        else:
+            lists_to_search.extend(CAMPECHE_DATA.get("restaurantes_famosos", []))
+            for cat in CAMPECHE_DATA.get("puntos_interes_recomendados", {}).values():
+                lists_to_search.extend(cat)
+        lists_to_search.extend(CAMPECHE_DATA.get("lugares_comunidad", []))
+
+        for item in lists_to_search:
+            full_text = f"{item['nombre']} {item.get('categoria','')} {item.get('direccion','')}".lower()
+            if any(k in full_text for k in search_terms):
+                if "maps_url" not in item:
+                    coords = item.get("coordenadas")
+                    if coords: item["maps_url"] = generate_maps_link(coords["lat"], coords["lng"], item["nombre"], "")
+                    else: item["maps_url"] = generate_maps_link(None, None, item["nombre"], item.get("direccion",""))
+                item["origen"] = "Datos Naaj 🟠"
+                json_hits.append(item)
+                seen_names.add(item["nombre"].lower())
+
+        # Ordenar JSON por distancia si hay GPS
+        if lat and lng:
+            for item in json_hits:
+                coords = item.get("coordenadas")
+                if coords: item["_dist"] = haversine(lat, lng, coords["lat"], coords["lng"])
+                else: item["_dist"] = 9999
+            json_hits.sort(key=lambda x: x.get("_dist", 9999))
+        
+        combined_results.extend(json_hits[:5])
+
+    # Google como complemento
+    google_triggers = ["abierto", "horario", "valoracion", "rating", "precio", "opiniones"]
+    # Agregamos transporte a google triggers por si acaso el JSON falla
+    if is_transport_query: google_triggers.extend(transport_triggers)
+    
+    needs_google = len(json_hits) < 2 or any(w in final_query.lower() for w in google_triggers) or target_municipality
+
+    if needs_google and len(final_query) > 2:
+        google_hits = search_google_places(final_query, lat, lng, type_search="general")
+        for g_item in google_hits:
+            if g_item["nombre"].lower() not in seen_names:
+                combined_results.append(g_item)
+    
+    return combined_results or google_hits
+
 def build_prompt(user_question, retrieved_data, detected_lang, has_coords, history):
     location_msg = "GPS Provided" if has_coords else "Unknown"
     history_text = ""

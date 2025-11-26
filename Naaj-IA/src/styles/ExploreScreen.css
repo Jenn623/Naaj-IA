@@ -5,7 +5,8 @@
   height: 100dvh;
   width: 100vw;
   /* Degradado Rosa a Azul/Cian */
-  background: linear-gradient(180deg, rgba(228, 0, 124, 1) 0%, rgba(105, 58, 176, 1) 50%, rgba(42, 243, 243, 1) 100%);
+  /*background: linear-gradient(180deg, rgba(228, 0, 124, 1) 0%, rgba(105, 58, 176, 1) 50%, rgba(42, 243, 243, 1) 100%);*/
+  background-image: url('/fondo-naajIA.png');
   display: flex;
   flex-direction: column;
   overflow: hidden; /* IMPORTANTE: Bloquea scroll en body */
@@ -57,8 +58,9 @@
 /* ESTADO MINIMIZADO (BARRA SUPERIOR) */
 .explore-header.minimized {
   height: 80px; /* Altura estándar de barra de navegación */
-  background: rgba(228, 0, 124, 0.98); /* Color sólido (Rosa Naaj) */
+  background: rgba(228, 0, 118, 0.145); /* Color sólido (Rosa Naaj) */
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  /*rgba(228, 0, 124, 0.98)*/
   
   /* Alineación */
   display: flex;

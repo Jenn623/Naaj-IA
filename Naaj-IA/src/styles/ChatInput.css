@@ -6,7 +6,7 @@
   padding: 10px 15px;
   
   /* 1. Fondo del contenedor: Oscuro muy sutil y transparente */
-  background-color: rgba(0, 0, 0, 0.05); 
+  background-color: rgba(0, 0, 0, 0.056); 
   
   /* 2. Desenfoque del fondo detrás de la barra */
   backdrop-filter: blur(4px);
@@ -28,7 +28,7 @@
   align-items: flex-end;
   
   /* 3. Efecto Vidrio (Glassmorphism) */
-  background-color: rgba(255, 255, 255, 0.062); /* Blanco al 20% de opacidad */
+  background-color: rgba(255, 255, 255, 0); /* Blanco al 20% de opacidad */
   border: 1px solid rgba(255, 255, 255, 0.3); /* Borde semitransparente */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
   backdrop-filter: blur(10px); /* Blur interno para que el texto sea legible */
@@ -40,7 +40,7 @@
 
 /* Al hacer foco, se vuelve un poco más sólido */
 .chat-input-form:focus-within {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.079);
   border-color: rgba(255, 255, 255, 0.6);
 }
 

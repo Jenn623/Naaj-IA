@@ -19,22 +19,28 @@ const NavBar = () => {
         className={`nav-item ${isActive('/explore') ? 'active' : ''}`} 
         onClick={() => navigate('/explore')}
       >
-        {/* Puedes usar un emoji o tu imagen SVG aquí */}
-        <span role="img" aria-label="Inicio">🏠</span>
+        {/* Puedes usar un emoji o tu imagen SVG aquí 🏠*/}
+        <span role="img" aria-label="Inicio">
+          <img src="/home_1168602.png" alt="" />
+        </span>
       </div>
 
-      {/* BOTÓN 2: CHAT -> Va a NAAJ-IA */}
+      {/* BOTÓN 2: CHAT -> Va a NAAJ-IA 💬*/}
       <div 
         className={`nav-item ${isActive('/naaj') ? 'active' : ''}`} 
         onClick={() => navigate('/naaj')}
       >
         {/* Usamos un icono de chat o robot */}
-        <span role="img" aria-label="Chat">💬</span>
+        <span role="img" aria-label="Chat">
+          <img src="/axolotl_3919382.png" alt="" />
+        </span>
       </div>
 
       {/* BOTÓN 3: PERFIL/CONFIG (Sin función por ahora) */}
       <div className="nav-item">
-        <span role="img" aria-label="Configuración">⚙️</span>
+        <span role="img" aria-label="Configuración">
+          <img src="setting_12299442.png" alt="engrane" />
+        </span>
       </div>
 
     </div>

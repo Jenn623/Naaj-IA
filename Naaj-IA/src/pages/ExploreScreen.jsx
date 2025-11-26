@@ -128,7 +128,7 @@ const ExploreScreen = () => {
               <input 
                 type="text"
                 className="real-search-input"
-                placeholder={scrolled ? 'Buscar...' : '¿Dónde te gustaría ir hoy?'}
+                placeholder={scrolled ? 'Busca tu próximo destino' : '¿Dónde te gustaría ir hoy?'}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />

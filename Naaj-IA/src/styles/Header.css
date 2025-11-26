@@ -9,7 +9,7 @@
   position: sticky; /* Se queda fijo arriba */
   top: 0;
   z-index: 100;
-  background-color: #402544;
+  background-color: #402544c9; /*402544*/
 }
 
 .avatar img {
@@ -23,7 +23,7 @@
 .header-info h2 {
   margin: 0;
   font-size: 1.2rem;
-  color: #394425;
+  color: white;
 }
 
 .status {

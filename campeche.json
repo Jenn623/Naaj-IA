@@ -1,201 +1,171 @@
 {
   "estado": "Campeche",
-  "categoria": "restaurantes",
-  "version": "1.0",
-  "descripcion": "Módulo de restaurantes (opción C: mezcla balanceada) para Campeche. Fuentes incluidas en cada entrada.",
-  "municipios": {
-    "Campeche": [
-      {
-        "id": 1,
-        "nombre": "La Pigua",
-        "categoria": "Mariscos",
-        "direccion": "C. 59, Centro Histórico, Campeche (Malecón area)",
-        "coordenadas": {
-          "lat": 19.835,
-          "lng": -90.529
-        },
-        "fuente": "TripAdvisor | https://www.tripadvisor.com/Restaurant_Review-g1632078-d1050987-Reviews-La_Pigua-Campeche_Yucatan_Peninsula.html",
-        "rating": 4.8,
-        "reviews": [],
-        "imagen": "https://images.unsplash.com/photo-1565608087341-345c6f15793b?w=600&q=80"
-      },
-      {
-        "id": 2,
-        "nombre": "La Palapa del Tío Fito",
-        "categoria": "Mariscos",
-        "direccion": "Av. Resurgimiento s/n, Col. Lazareto, San Francisco de Campeche, Camp.",
-        "coordenadas": {
-          "lat": 19.836,
-          "lng": -90.5295
-        },
-        "fuente": "Sitio oficial | https://lapalapadeltiofito.com/en/ | TripAdvisor https://www.tripadvisor.com/Restaurant_Review-g1632078-d2620495-Reviews-La_Palapa_del_Tio_Fito-Campeche_Yucatan_Peninsula.html",
-        "rating": 4.6,
-        "reviews": [],
-        "imagen": "https://media-cdn.tripadvisor.com/media/photo-s/1b/4f/95/6a/vista-desde-nuestra-terraza.jpg"
-      },
-      {
-        "nombre": "Calle 59",
-          "categoria": "Centro Histórico",
-          "direccion": "Calle 59, Centro, Campeche",
-          "coordenadas": { "lat": 19.845, "lng": -90.534 },
-          "rating": 4.9,
-          "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Calle_59_Campeche.jpg/800px-Calle_59_Campeche.jpg"
-      },
-      {
-        "id": 3,
-        "nombre": "Marganzo",
-        "categoria": "Mariscos / Cocina local",
-        "direccion": "Centro Histórico, Campeche",
-        "coordenadas": {
-          "lat": 19.8465,
-          "lng": -90.5325
-        },
-        "fuente": "Listados locales / Wanderlog / TripAdvisor",
-        "rating": 4.5,
-        "reviews": [],
-        "imagen": "https://media-cdn.tripadvisor.com/media/photo-s/0d/bd/ec/04/marganzo.jpg"
-      },
-      {
-        "id": 4,
-        "nombre": "Aduana 59",
-        "categoria": "Alta cocina / Mexicana contemporánea",
-        "direccion": "Calle 59, Centro Histórico, Campeche",
-        "coordenadas": {
-          "lat": 19.845,
-          "lng": -90.534
-        },
-        "fuente": "TripAdvisor | https://www.tripadvisor.com/Restaurant_Review-g1632078-d18855041-Reviews-Aduana_59-Campeche_Yucatan_Peninsula.html",
-        "rating": 4.7,
-        "reviews": [],
-        "imagen": "https://media-cdn.tripadvisor.com/media/photo-s/1c/d3/c7/2a/aduana-59.jpg"
-      },
-      {
-        "nombre": "Bartola (Cafetería)",
-        "categoria": "Cafetería / Desayuno",
-        "direccion": "Centro Histórico, Campeche",
-        "coordenadas": {
-          "lat": 19.846,
-          "lng": -90.533
-        },
-        "fuente": "Reseñas locales / TripAdvisor references"
-      },
-      {
-        "nombre": "El Bastión",
-        "categoria": "Comida campechana",
-        "direccion": "Calle 57 #2A entre 8 y 10, Campeche",
-        "coordenadas": {
-          "lat": 19.8452,
-          "lng": -90.5341
-        },
-        "fuente": "Facebook / listados locales"
-      },
-      {
-          "nombre": "Fuerte de San Miguel",
-          "categoria": "Museo / Historia",
-          "direccion": "Av. Escénica s/n, Campeche",
-          "coordenadas": { "lat": 19.823, "lng": -90.559 },
-          "rating": 4.8,
-          "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Fuerte_de_San_Miguel%2C_Campeche.jpg/800px-Fuerte_de_San_Miguel%2C_Campeche.jpg",
-          "reviews": []
-        },
-        {
-          "nombre": "Malecón de Campeche",
-          "categoria": "Paseo / Naturaleza",
-          "direccion": "Av. Pedro Sainz de Baranda",
-          "coordenadas": { "lat": 19.848, "lng": -90.540 },
-          "rating": 4.7,
-          "imagen": "https://images.unsplash.com/photo-1612633826752-7a356f22eb40?w=600&q=80",
-          "reviews": []
-        }
-    ],
-    "calakmul": [
-        {
-          "nombre": "Zona Arqueológica de Calakmul",
-          "categoria": "Arqueología",
-          "direccion": "Reserva de la Biosfera Calakmul",
-          "coordenadas": { "lat": 18.105, "lng": -89.810 },
-          "rating": 5.0,
-          "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Calakmul_Structure_II.jpg/800px-Calakmul_Structure_II.jpg",
-          "reviews": []
-        }
-      
-    ],
-    "Ciudad del Carmen": [
-      {
-        "nombre": "La Pigua (Cd. del Carmen)",
-        "categoria": "Mariscos",
-        "direccion": "Ciudad del Carmen, Campeche (Malecón area)",
-        "coordenadas": null,
-        "fuente": "TripAdvisor listings | https://www.tripadvisor.com.mx/Restaurants-g317140-c33-Ciudad_del_Carmen_Yucatan_Peninsula.html"
-      },
-      {
-        "nombre": "Coctelería Cajun",
-        "categoria": "Mariscos / Coctelería",
-        "direccion": "Ciudad del Carmen, Campeche",
-        "coordenadas": null,
-        "fuente": "TripAdvisor listings"
+  "descripcion": "Base de datos turística y de movilidad de Naaj-IA",
+  "version": "6.0",
+  "municipios_data": {
+    "campeche": {
+      "nombre_oficial": "San Francisco de Campeche",
+      "esencia": "Ciudad Fortificada, Patrimonio Cultural de la Humanidad.",
+      "lugares": [
+        { "nombre": "Calle 59", "categoria": "Centro Histórico", "direccion": "Centro", "rating": 4.9, "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Calle_59_Campeche.jpg/800px-Calle_59_Campeche.jpg", "reviews": [] },
+        { "nombre": "Fuerte de San Miguel", "categoria": "Museo", "direccion": "Av. Escénica", "rating": 4.8, "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Fuerte_de_San_Miguel%2C_Campeche.jpg/800px-Fuerte_de_San_Miguel%2C_Campeche.jpg", "reviews": [] }
+      ],
+      "directorio_transporte": {
+        "sitios_taxi": [
+          { "nombre": "Radio Taxi Murallas", "contacto": "981-813-0808", "tarifa": "Centro: $40-$50 | Periferia: $60-$80" },
+          { "nombre": "Radio Taxi Radar", "contacto": "981-813-3030", "tarifa": "A Estación Tren Maya: $250 (Regulada)" },
+          { "nombre": "Taxicel", "contacto": "WhatsApp: 981-115-0093", "tarifa": "Cotización previa. Aeropuerto: $250" }
+        ],
+        "tren_maya": { "estacion_activa": true, "distancia_centro": "10 km", "costo_transfer": "$250 aprox", "nota": "Consultar App Tren Maya" },
+        "micro_movilidad": { "tipo": "Autobús Urbano (Ko'ox)", "precio": "Gratuito / Subsidiado", "nota": "Unidades modernas y ecológicas." }
       }
-    ],
-    "Champotón": [
-      {
-        "nombre": "Restaurant Pelicanos II",
-        "categoria": "Mariscos",
-        "direccion": "Champotón, Campeche",
-        "coordenadas": null,
-        "fuente": "TripAdvisor | https://www.tripadvisor.com.mx/Restaurants-g1026030-Champoton_Yucatan_Peninsula.html"
-      },
-      {
-        "nombre": "El Timón",
-        "categoria": "Mariscos / Cocina local",
-        "direccion": "Champotón, Campeche (Malecón area)",
-        "coordenadas": null,
-        "fuente": "TripAdvisor listings"
+    },
+    "carmen": {
+      "nombre_oficial": "Ciudad del Carmen",
+      "esencia": "Tradición pesquera e industria petrolera.",
+      "lugares": [
+        { "nombre": "Puente El Zacatal", "categoria": "Monumento", "direccion": "Entrada Ciudad", "rating": 4.7, "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Puente_El_Zacatal.jpg/800px-Puente_El_Zacatal.jpg", "reviews": [] }
+      ],
+      "directorio_transporte": {
+        "sitios_taxi": [
+          { "nombre": "Taxis Rojos (SUTV)", "contacto": "Paraderos Av. Periférica", "tarifa": "Mínima: $35-$40 | Zona Industrial: $100+" },
+          { "nombre": "Apps (InDrive / Uber)", "contacto": "App Móvil", "tarifa": "Dinámica (15-20% más económico)" }
+        ],
+        "tren_maya": { "estacion_activa": false, "nota": "Conexión vía ADO a Escárcega (2.5 hrs)" },
+        "micro_movilidad": { "tipo": "Colectivos Urbanos", "precio": "$10 - $12 MXN", "nota": "Pago en efectivo. Rutas municipales." }
       }
-    ],
-    "Isla Aguada": [
-      {
-        "nombre": "Mar y Cruz 2",
-        "categoria": "Mariscos",
-        "direccion": "Isla Aguada, Campeche",
-        "coordenadas": null,
-        "fuente": "TripAdvisor listings | https://www.tripadvisor.com.mx/Restaurants-g6368948-Isla_Aguada_Yucatan_Peninsula.html"
-      },
-      {
-        "nombre": "Casa Grande (Isla Aguada)",
-        "categoria": "Mariscos / Comida local",
-        "direccion": "Isla Aguada, Campeche",
-        "coordenadas": null,
-        "fuente": "Facebook listing / local references"
+    },
+    "escarcega": {
+      "nombre_oficial": "Escárcega",
+      "esencia": "Corazón del chicle y nudo ferroviario.",
+      "lugares": [],
+      "directorio_transporte": {
+        "sitios_taxi": [{ "nombre": "Sindicato de Taxistas", "contacto": "Base Terminal ADO", "tarifa": "$35 - $50 (Radio urbano)" }],
+        "tren_maya": { "estacion_activa": true, "distancia_centro": "3 km", "costo_transfer": "$50", "nota": "Hub principal líneas Palenque/Mérida" },
+        "micro_movilidad": { "tipo": "Mototaxis", "precio": "$15 - $25 MXN", "nota": "Acordar precio. Operan 6am-4pm." }
       }
-    ],
-    "Palizada": [
-      {
-        "nombre": "Café Galería La Caña Del Timón",
-        "categoria": "Cafetería / Café galería",
-        "direccion": "Palizada, Campeche",
-        "coordenadas": null,
-        "fuente": "TripAdvisor listings"
-      },
-      {
-        "nombre": "Vicanto Restaurante & Muelle",
-        "categoria": "Cocina regional / Muelle",
-        "direccion": "Palizada, Campeche (Centro)",
-        "coordenadas": {
-          "lat": 18.2546,
-          "lng": -92.09148
-        },
-        "fuente": "Facebook page | https://www.facebook.com/vicantomuelle/"
+    },
+    "calkini": {
+      "nombre_oficial": "Calkiní",
+      "esencia": "Atenas del Camino Real, cultura maya viva.",
+      "lugares": [],
+      "directorio_transporte": {
+        "sitios_taxi": [{ "nombre": "UNTRAC / Taxis Calkiní", "contacto": "Paradero Centro", "tarifa": "$50 - $70 (Colectivo a pueblos)" }],
+        "tren_maya": { "estacion_activa": true, "distancia_centro": "4 km", "costo_transfer": "$40", "nota": "Salidas a Mérida y Campeche" },
+        "micro_movilidad": { "tipo": "Tricitaxis", "precio": "$15 - $25 MXN", "nota": "Esencial para ir al mercado. A Bécal $40-$60." }
       }
-    ],
-    "Other": [
-      {
-        "nombre": "Restaurant Familiar El Grillo Marino",
-        "municipio": "Palizada",
-        "categoria": "Mariscos / Cocina local",
-        "direccion": "Palizada, Campeche",
-        "coordenadas": null,
-        "fuente": "TripAdvisor listings"
+    },
+    "dzitbalche": {
+      "nombre_oficial": "Dzitbalché",
+      "esencia": "Hogar de los Cantares, comunidad agrícola.",
+      "lugares": [],
+      "directorio_transporte": {
+        "sitios_taxi": [{ "nombre": "Colectivos a Calkiní", "contacto": "Paradero Principal", "tarifa": "$10 - $15 MXN" }],
+        "tren_maya": { "estacion_activa": false, "nota": "Usa estación Calkiní" },
+        "micro_movilidad": { "tipo": "Mototaxis", "precio": "$10 - $15 MXN", "nota": "Más de 500 unidades. Medio principal." }
       }
+    },
+    "hecelchakan": {
+      "nombre_oficial": "Hecelchakán",
+      "esencia": "La Sabana del Descanso, cochinita pibil y Pomuch.",
+      "lugares": [],
+      "directorio_transporte": {
+        "sitios_taxi": [{ "nombre": "Colectivos Ruta Campeche", "contacto": "Calle 49", "tarifa": "$45 - $55 MXN" }],
+        "tren_maya": { "estacion_activa": true, "distancia_centro": "5 km", "costo_transfer": "$30", "nota": "Salidas matutinas" },
+        "micro_movilidad": { "tipo": "Tricitaxis", "precio": "$10 - $20 MXN", "nota": "Concentración en Mercado." }
+      }
+    },
+    "tenabo": {
+      "nombre_oficial": "Tenabo",
+      "esencia": "Elaboración de trajes típicos y conservas.",
+      "lugares": [],
+      "directorio_transporte": {
+        "sitios_taxi": [{ "nombre": "Colectivos (Combis)", "contacto": "Ruta Tenabo-Campeche", "tarifa": "$20 - $35 MXN" }],
+        "tren_maya": { "estacion_activa": true, "distancia_centro": "3 km", "costo_transfer": "$25", "nota": "A Campeche en 29 min" },
+        "micro_movilidad": { "tipo": "Tricitaxis", "precio": "$10 - $15 MXN", "nota": "Movilidad interna exclusiva." }
+      }
+    },
+    "hopelchen": {
+      "nombre_oficial": "Hopelchén",
+      "esencia": "Región de Los Chenes, arquitectura maya y menonitas.",
+      "lugares": [],
+      "directorio_transporte": {
+        "sitios_taxi": [
+          { "nombre": "Taxi Colectivo Los Chenes", "contacto": "Mercado", "tarifa": "$70 - $100 a Campeche" },
+          { "nombre": "Flete Privado a Ruinas", "contacto": "Directo", "tarifa": "$400 - $800 MXN" }
+        ],
+        "tren_maya": { "estacion_activa": false },
+        "micro_movilidad": { "tipo": "Taxis locales", "precio": "Variable" }
+      }
+    },
+    "seybaplaya": {
+      "nombre_oficial": "Seybaplaya",
+      "esencia": "Puerto pesquero, faro y playas.",
+      "lugares": [],
+      "directorio_transporte": {
+        "sitios_taxi": [{ "nombre": "Taxis Colectivos", "contacto": "Parque Principal", "tarifa": "$30 - $45 a Campeche" }],
+        "tren_maya": { "estacion_activa": false },
+        "micro_movilidad": { "tipo": "Mototaxis", "precio": "$15 - $25 MXN" }
+      }
+    },
+    "champoton": {
+      "nombre_oficial": "Champotón",
+      "esencia": "Bahía de la Mala Pelea, gastronomía de mariscos.",
+      "lugares": [],
+      "directorio_transporte": {
+        "sitios_taxi": [{ "nombre": "Sitio Franja Azul", "contacto": "982-828-2217", "tarifa": "$30 - $40 urbano" }],
+        "tren_maya": { "estacion_activa": false },
+        "micro_movilidad": { "tipo": "Tricitaxis", "precio": "$15 - $25 MXN" }
+      }
+    },
+    "candelaria": {
+      "nombre_oficial": "Candelaria",
+      "esencia": "Pueblo Mágico selvático y fluvial.",
+      "lugares": [],
+      "directorio_transporte": {
+        "sitios_taxi": [{ "nombre": "Lanchas Fluviales", "contacto": "Malecón", "tarifa": "Tours desde $200" }],
+        "tren_maya": { "estacion_activa": true, "distancia_centro": "2 km", "costo_transfer": "$20" },
+        "micro_movilidad": { "tipo": "Pochimóviles (Mototaxis)", "precio": "$10 - $20 MXN", "nota": "Icónicos del lugar." }
+      }
+    },
+    "calakmul": {
+      "nombre_oficial": "Calakmul",
+      "esencia": "Reserva de la Biosfera, selva.",
+      "lugares": [],
+      "directorio_transporte": {
+        "sitios_taxi": [
+          { "nombre": "Sitio Taxis 24h", "contacto": "983-871-6101", "tarifa": "Urbano: $35-$50 | Ruinas: $800+" },
+          { "nombre": "Taxis Foráneos", "contacto": "Terminal Xpujil", "tarifa": "A Chetumal: $150-$200" }
+        ],
+        "tren_maya": { "estacion_activa": true, "distancia_centro": "8 km", "costo_transfer": "$100", "nota": "Estación Xpujil" },
+        "micro_movilidad": { "tipo": "Taxi Urbano", "precio": "$35 - $50 MXN" }
+      }
+    },
+    "palizada": {
+      "nombre_oficial": "Palizada",
+      "esencia": "Pueblo Mágico afrancesado, teja marsellesa.",
+      "lugares": [],
+      "directorio_transporte": {
+        "sitios_taxi": [{ "nombre": "Taxis Locales", "contacto": "Parque Principal", "tarifa": "$30 - $40 MXN" }],
+        "tren_maya": { "estacion_activa": false },
+        "micro_movilidad": { "tipo": "Triciclos Turísticos", "precio": "Negociable", "nota": "Populares en malecón." }
+      }
+    }
+  },
+  "restaurantes_famosos": [
+    {
+      "nombre": "La Pigua",
+      "categoria": "Mariscos",
+      "direccion": "Av. Miguel Alemán",
+      "coordenadas": { "lat": 19.846, "lng": -90.532 },
+      "rating": 4.8,
+      "imagen": "https://media-cdn.tripadvisor.com/media/photo-s/1a/07/93/28/la-pigua.jpg",
+      "reviews": []
+    }
+  ],
+  "puntos_interes_recomendados": {
+    "arqueologia": [
+      { "nombre": "Edzná", "categoria": "Arqueología", "direccion": "Valle de Edzná", "coordenadas": { "lat": 19.596, "lng": -90.229 }, "rating": 4.9, "imagen": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Edzna_Five_Floors_Pyramid.jpg/640px-Edzna_Five_Floors_Pyramid.jpg", "reviews": [] }
     ]
   },
   "lugares_comunidad": [
