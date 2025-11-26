@@ -55,3 +55,7 @@
   font-style: italic;
   margin-bottom: 10px;
 }
+
+.navbar{
+  position: sticky;
+}
